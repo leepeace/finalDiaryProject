@@ -39,4 +39,13 @@ public class UserController {
         return null;
     }
 
+    /*
+    * 아이디 중복 체크
+    * */
+    @PostMapping("/check-id")
+    @Operation(summary = "아이디 중복체크", description = "사용자가 입력한 아이디의 중복 체크 기능입니다.")
+    public BaseResponse<?> checkValidateId(@RequestBody String userId){
+        return null;
+    }
+
 }
