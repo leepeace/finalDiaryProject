@@ -7,7 +7,7 @@
         insert into user(id, pwd, nickname)
         values()
     </insert>
-    <select id="login" parameterType="userDTO" resultType="userDTO">
+    <select id="login" parameterType="loginDTO" resultType="userDTO">
         select *
         from user
         where id=#{id} and pwd=#{pwd}

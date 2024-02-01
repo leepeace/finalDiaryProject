@@ -1,6 +1,8 @@
 package com.ktds.haru.api.user.service;
 
 import com.ktds.haru.api.user.persistence.repository.UserRepository;
+import com.ktds.haru.api.user.presentation.dto.request.LoginRequestDTO;
+import com.ktds.haru.api.user.presentation.dto.response.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,10 @@ public class UserService {
     }
 
     //로그인
-    public boolean login(){
+    public boolean login(LoginRequestDTO loginRequestDTO){
+        UserResponseDTO userResponseDTO = userRepository.login(loginRequestDTO);
+
+
         return false;
     }
 

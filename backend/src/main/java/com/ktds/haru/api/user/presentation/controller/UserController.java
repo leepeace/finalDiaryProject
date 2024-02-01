@@ -3,6 +3,7 @@ package com.ktds.haru.api.user.presentation.controller;
 import com.ktds.haru.api.common.BaseResponse;
 import com.ktds.haru.api.user.presentation.dto.request.LoginRequestDTO;
 import com.ktds.haru.api.user.presentation.dto.request.UserRequestDTO;
+import com.ktds.haru.api.user.presentation.validator.UserValidator;
 import com.ktds.haru.api.user.service.UserService;
 import com.ktds.haru.utils.exception.CustomException;
 import com.ktds.haru.utils.exception.ErrorCode;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final UserValidator userValidator;
 
     /*
     * 회원가입
@@ -37,6 +39,11 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "로그인", description = "아이디와 비밀번호로 로그인을 합니다.")
     public BaseResponse<?> login(@RequestBody LoginRequestDTO loginRequestDTO){
+
+        //NOT NULL 검증
+        userValidator.validateLoginRequestDTO(loginRequestDTO);
+
+
         return null;
     }
 

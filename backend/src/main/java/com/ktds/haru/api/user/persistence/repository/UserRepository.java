@@ -1,5 +1,7 @@
 package com.ktds.haru.api.user.persistence.repository;
 
+import com.ktds.haru.api.user.presentation.dto.request.LoginRequestDTO;
+import com.ktds.haru.api.user.presentation.dto.response.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,4 +20,7 @@ public class UserRepository {
         return sqlSessionTemplate.selectOne("User.checkId", id);
     }
 
+    public UserResponseDTO login(LoginRequestDTO loginRequestDTO) {
+        return sqlSessionTemplate.selectOne("User.login", loginRequestDTO);
+    }
 }
