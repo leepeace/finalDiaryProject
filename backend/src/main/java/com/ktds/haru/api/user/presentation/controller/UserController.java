@@ -3,14 +3,15 @@ package com.ktds.haru.api.user.presentation.controller;
 import com.ktds.haru.api.common.BaseResponse;
 import com.ktds.haru.api.user.presentation.dto.request.LoginRequestDTO;
 import com.ktds.haru.api.user.presentation.dto.request.UserRequestDTO;
+import com.ktds.haru.api.user.service.UserService;
+import com.ktds.haru.utils.exception.CustomException;
+import com.ktds.haru.utils.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserController {
 
-    //private final UserService userService;
+    private final UserService userService;
 
     /*
     * 회원가입
@@ -42,10 +43,16 @@ public class UserController {
     /*
     * 아이디 중복 체크
     * */
-    @PostMapping("/check-id")
+    @GetMapping("/check-id")
     @Operation(summary = "아이디 중복체크", description = "사용자가 입력한 아이디의 중복 체크 기능입니다.")
-    public BaseResponse<?> checkValidateId(@RequestBody String userId){
-        return null;
+    public BaseResponse<?> checkValidateId(@RequestParam String userId){
+
+        //아이디가 중복된 경우
+        if(!userService.checkValidateId(userId)){
+            new CustomException(ErrorCode.DUPLICATE_RESOURCE);
+        }
+
+        return new BaseResponse<>(true, HttpStatus.OK.value(), "아이디 중복 없음");
     }
 
 }
