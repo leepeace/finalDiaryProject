@@ -1,6 +1,7 @@
 package com.ktds.haru.api.school.presentation.validator;
 
 import com.ktds.haru.api.common.CommonValidator;
+import com.ktds.haru.api.school.presentation.dto.request.SchoolJoinRequestDTO;
 import com.ktds.haru.api.school.presentation.dto.request.SchoolRequestDTO;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,13 @@ public class SchoolValidator extends CommonValidator {
         checkStringType(school.getSchoolPwd(), "학급 비밀번호");
         checkStringType(school.getNickname(), "학급 닉네임");
         checkStringType(school.getSchoolGrade(), "학급 반");
+    }
+
+
+    public void validateSchoolJoinRequestDTO(SchoolJoinRequestDTO school){
+        checkStringType(school.getSchoolPwd(), "학급 비밀번호");
+        checkStringType(school.getId(), "사용자 아이디");
+        checkIntType(school.getClassId(), "학급 아이디");
     }
 
 }

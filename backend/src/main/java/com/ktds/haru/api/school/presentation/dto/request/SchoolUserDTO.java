@@ -7,23 +7,23 @@ import lombok.*;
 @NoArgsConstructor
 public class SchoolUserDTO {
 
-    private int class_id;
-    private int user_id;
+    private int classId;
+    private int userId;
     private String role;
 
     @Builder
-    public SchoolUserDTO(int class_id, int user_id, String role) {
-        this.class_id = class_id;
-        this.user_id = user_id;
+    public SchoolUserDTO(int classId, int userId, String role) {
+        this.classId = classId;
+        this.userId = userId;
         this.role = role;
     }
 
 
     public SchoolUserDTO setSchoolUser(int userId, int schoolId, String roleName) {
         return SchoolUserDTO.builder()
-                .user_id(userId)
+                .userId(userId)
                 .role(roleName)
-                .class_id(schoolId)
+                .classId(schoolId)
                 .build();
     }
 }

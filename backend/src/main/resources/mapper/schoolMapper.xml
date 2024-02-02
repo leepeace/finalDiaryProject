@@ -12,12 +12,23 @@
 
     <select id="getCurrentId" resultType="int">
         SELECT
-            class_id
+            classId
         FROM
             school_class
         ORDER BY
-            class_id DESC
+            classId DESC
         LIMIT 1
+    </select>
+
+    <select id="checkPwd" resultType="schoolResponse" parameterType="schoolJoinRequest">
+        SELECT
+            *
+        FROM
+            school_class
+        WHERE
+            schoolPwd=#{schoolPwd}
+        AND
+            classId=#{classId}
     </select>
 
 </mapper>

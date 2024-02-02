@@ -1,6 +1,8 @@
 package com.ktds.haru.api.school.persistence.repository;
 
+import com.ktds.haru.api.school.presentation.dto.request.SchoolJoinRequestDTO;
 import com.ktds.haru.api.school.presentation.dto.request.SchoolRequestDTO;
+import com.ktds.haru.api.school.presentation.dto.response.SchoolResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,5 +19,12 @@ public class SchoolRepository {
 
     public int getSchoolId(){
         return sqlSessionTemplate.selectOne("School.getCurrentId");
+    }
+
+    /*
+    * 비밀번호 일치여부 확인
+    * */
+    public SchoolResponseDTO getSchoolPassword(SchoolJoinRequestDTO schoolJoinRequestDTO){
+        return sqlSessionTemplate.selectOne("School.checkPwd", schoolJoinRequestDTO);
     }
 }

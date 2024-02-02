@@ -7,7 +7,7 @@
         insert into
             school_class_has_user
         values
-            (#{class_id}, #{user_id}, #{role})
+            (#{classId}, #{userId}, #{role})
     </insert>
 
 

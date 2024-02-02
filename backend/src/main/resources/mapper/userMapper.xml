@@ -22,7 +22,7 @@
         where id=#{id}
     </select>
     <select id="getUserId" resultType="int">
-        select user_id
+        select userId
         from user
         where id=#{id}
     </select>

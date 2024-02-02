@@ -1,5 +1,6 @@
 package com.ktds.haru.api.school.presentation.dto.request;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Tag(name = "학급 모임 만들기 request")
 public class SchoolRequestDTO {
 
     private String schoolName;
