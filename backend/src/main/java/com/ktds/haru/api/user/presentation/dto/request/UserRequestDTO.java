@@ -12,12 +12,12 @@ import lombok.Setter;
 public class UserRequestDTO {
 
     //아이디
-    private String userId;
+    private String id;
 
     //비밀번호
-    private String password;
+    private String pwd;
 
     //닉네임
-    private String nickName;
+    private String nickname;
 
 }

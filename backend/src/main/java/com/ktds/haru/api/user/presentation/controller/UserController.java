@@ -5,8 +5,6 @@ import com.ktds.haru.api.user.presentation.dto.request.LoginRequestDTO;
 import com.ktds.haru.api.user.presentation.dto.request.UserRequestDTO;
 import com.ktds.haru.api.user.presentation.validator.UserValidator;
 import com.ktds.haru.api.user.service.UserService;
-import com.ktds.haru.utils.exception.CustomException;
-import com.ktds.haru.utils.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +28,17 @@ public class UserController {
     @PostMapping("/sign-up")
     @Operation(summary = "회원가입", description = "사용자 정보를 받아 회원가입을 합니다.")
     public BaseResponse<?> signUp(@RequestBody UserRequestDTO userRequestDTO){
-        return null;
+        //NULL 체크
+        userValidator.validateUserRequestDTO(userRequestDTO);
+
+        boolean result = userService.signUp(userRequestDTO);
+
+        if(!result){
+            return new BaseResponse<>(false, HttpStatus.UNPROCESSABLE_ENTITY.value(), "회원가입 실패");
+        }
+
+
+        return new BaseResponse<>(true, HttpStatus.OK.value(), "회원가입 성공");
     }
     
     /*
@@ -42,9 +50,16 @@ public class UserController {
 
         //NOT NULL 검증
         userValidator.validateLoginRequestDTO(loginRequestDTO);
+        
+        boolean result = userService.login(loginRequestDTO);
+        
+        //로그인 정보가 없는 경우
+        if(!result){
+            return new BaseResponse<>(false, HttpStatus.NOT_FOUND.value(), "로그인 정보 없음");
 
+        }
 
-        return null;
+        return new BaseResponse<>(true, HttpStatus.OK.value(), "로그인 정보 있음");
     }
 
     /*
@@ -56,7 +71,7 @@ public class UserController {
 
         //아이디가 중복된 경우
         if(!userService.checkValidateId(userId)){
-            new CustomException(ErrorCode.DUPLICATE_RESOURCE);
+            return new BaseResponse<>(false, HttpStatus.CONFLICT.value(), "아이디 중복 있음");
         }
 
         return new BaseResponse<>(true, HttpStatus.OK.value(), "아이디 중복 없음");

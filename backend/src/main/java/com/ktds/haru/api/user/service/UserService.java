@@ -2,6 +2,7 @@ package com.ktds.haru.api.user.service;
 
 import com.ktds.haru.api.user.persistence.repository.UserRepository;
 import com.ktds.haru.api.user.presentation.dto.request.LoginRequestDTO;
+import com.ktds.haru.api.user.presentation.dto.request.UserRequestDTO;
 import com.ktds.haru.api.user.presentation.dto.response.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +17,27 @@ public class UserService {
 
     
     //회원가입
-    public boolean signUp(){
-        return false;
+    public boolean signUp(UserRequestDTO user){
+        int result = userRepository.signUp(user);
+
+        //회원가입에 실패한 경우
+        if(result <= 0){
+            return false;
+        }
+
+        return true;
     }
 
     //로그인
     public boolean login(LoginRequestDTO loginRequestDTO){
         UserResponseDTO userResponseDTO = userRepository.login(loginRequestDTO);
 
+        //기존 회원 정보가 없는 경우
+        if(userResponseDTO == null){
+            return false;
+        }
 
-        return false;
+        return true;
     }
 
 
