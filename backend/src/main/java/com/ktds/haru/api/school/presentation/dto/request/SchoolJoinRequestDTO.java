@@ -5,22 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SchoolRequestDTO {
+public class SchoolJoinRequestDTO {
 
-    private String schoolName;
+    private String userId;
 
-    private String schoolGrade;
-
-    private String schoolClass;
+    private int schoolId;
 
     private String schoolPwd;
-
-    private String nickname;
 
 }

@@ -4,16 +4,25 @@
 
 <mapper namespace="User">
     <insert id="signUp" parameterType="userDTO">
-        insert into user(id, pwd, nickname)
-        values(#{id}, #{pwd}, #{nickname})
+        insert into
+        user
+            (id, pwd, nickname)
+        values
+            (#{id}, #{pwd}, #{nickname})
     </insert>
     <select id="login" parameterType="loginDTO" resultType="userResponseDTO">
         select *
         from user
-        where id=#{id} and pwd=#{pwd}
+        where
+            id=#{id} and pwd=#{pwd}
     </select>
     <select id="checkId" resultType="String">
         select id
+        from user
+        where id=#{id}
+    </select>
+    <select id="getUserId" resultType="int">
+        select user_id
         from user
         where id=#{id}
     </select>

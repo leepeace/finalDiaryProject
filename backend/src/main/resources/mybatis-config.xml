@@ -7,5 +7,6 @@
         <typeAlias type="com.ktds.haru.api.user.presentation.dto.request.LoginRequestDTO" alias="loginDTO"/>
         <typeAlias type="com.ktds.haru.api.user.presentation.dto.request.UserRequestDTO" alias="userDTO"/>
         <typeAlias type="com.ktds.haru.api.user.presentation.dto.response.UserResponseDTO" alias="userResponseDTO"/>
+        <typeAlias type="com.ktds.haru.api.school.presentation.dto.request.SchoolUserDTO" alias="schoolUser"/>
     </typeAliases>
 </configuration>

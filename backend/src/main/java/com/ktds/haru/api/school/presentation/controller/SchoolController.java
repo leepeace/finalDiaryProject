@@ -1,13 +1,17 @@
 package com.ktds.haru.api.school.presentation.controller;
 
 import com.ktds.haru.api.common.BaseResponse;
+import com.ktds.haru.api.school.presentation.dto.request.SchoolRequestDTO;
+import com.ktds.haru.api.school.presentation.dto.request.SchoolJoinRequestDTO;
+import com.ktds.haru.api.school.presentation.validator.SchoolValidator;
 import com.ktds.haru.api.school.service.SchoolService;
+import com.ktds.haru.api.user.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,15 +21,42 @@ import org.springframework.web.bind.annotation.RestController;
 public class SchoolController {
 
     private final SchoolService schoolService;
+    private final SchoolValidator schoolValidator;
+    private final UserService userService;
 
 
     /*
     * 학급 만들기
     * */
-    @PostMapping
-    public BaseResponse<?> createClass(){
-        return null;
+    @PostMapping("/create")
+    @Operation(summary = "학급 만들기", description = "사용자는 정보를 입력하여 학급을 만들 수 있다.")
+    public BaseResponse<?> createClass(@RequestBody SchoolRequestDTO schoolRequestDTO, @RequestParam String id){
+        //NULL 검증
+        schoolValidator.validateSchoolRequestDTO(schoolRequestDTO);
+
+        int userId = userService.getUserIdById(id);//로그인 아이디로 pk id를 얻어옴
+
+        boolean result = schoolService.createClass(schoolRequestDTO, userId);
+        if(!result){
+            return new BaseResponse<>(false, HttpStatus.UNPROCESSABLE_ENTITY.value(), "학급 만들기 실패");
+        }
+
+        return new BaseResponse<>(true, HttpStatus.OK.value(), "학급 만들기 성공");
     }
 
+
+
+    /*
+     * 학급 모임 참여하기
+     * */
+    @PostMapping("/join")
+    @Operation(summary = "학급 참여하기", description = "사용자는 자신이 원하는 학급에 참여할 수 있다.")
+    public BaseResponse<?> joinClass(@RequestBody SchoolJoinRequestDTO schoolJoinRequestDTO){
+
+        //학급 패스워드가 일치하는지 확인함
+
+
+        return null;
+    }
 
 }

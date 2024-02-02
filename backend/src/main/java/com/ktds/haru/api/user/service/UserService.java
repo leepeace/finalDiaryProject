@@ -53,5 +53,10 @@ public class UserService {
         //아이디가 중복되지 않은 경우
         return true;
     }
-    
+
+
+    //사용자 아이디로 pk id 가져오기
+    public int getUserIdById(String loginId){
+        return userRepository.getUserId(loginId);
+    }
 }

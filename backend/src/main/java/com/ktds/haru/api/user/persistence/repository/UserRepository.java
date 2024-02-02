@@ -15,9 +15,9 @@ public class UserRepository {
 
 
     /*
-    * 아이디 중복체크
-    * */
-    public String checkValidateId(String id){
+     * 아이디 중복체크
+     * */
+    public String checkValidateId(String id) {
         return sqlSessionTemplate.selectOne("User.checkId", id);
     }
 
@@ -27,5 +27,10 @@ public class UserRepository {
 
     public int signUp(UserRequestDTO user) {
         return sqlSessionTemplate.insert("User.signUp", user);
+    }
+
+
+    public int getUserId(String id) {
+        return sqlSessionTemplate.selectOne("User.getUserId", id);
     }
 }
