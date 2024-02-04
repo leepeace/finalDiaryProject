@@ -20,4 +20,8 @@ public class DiaryRepository {
         return sqlSessionTemplate.selectList("Diary.searchDiaryByClassId", classId);
     }
 
+    public DiaryResponseDTO searchDetailById(int diaryId){
+        return sqlSessionTemplate.selectOne("Diary.searchDetailById", diaryId);
+    }
+
 }

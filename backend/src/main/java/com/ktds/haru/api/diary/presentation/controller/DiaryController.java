@@ -33,8 +33,16 @@ public class DiaryController {
 	//일기장 수정
 
 	//일기장 상세 조회
+	@GetMapping("/detail")
+	public BaseResponse<?> searchDetailById(@RequestParam int diaryId) {
+		DiaryResponseDTO response = diaryService.searchDetailById(diaryId);
 
+		if (response == null) {
+			return new BaseResponse<>(null, HttpStatus.INTERNAL_SERVER_ERROR.value(), "일기장 조회 실패");
+		}
 
+		return new BaseResponse<>(response, HttpStatus.OK.value(), "일기장 조회 성공");
+	}
 
 	//학급 일기장 전체 조회
 	@GetMapping("")

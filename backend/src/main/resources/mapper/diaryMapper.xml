@@ -10,5 +10,10 @@
         WHERE classId = #{classId}
     </select>
 
+    <select id="searchDetailById" parameterType="int" resultType="diaryResponse">
+        SELECT *
+        FROM diary
+        WHERE diaryId = #{diaryId}
+    </select>
 
 </mapper>

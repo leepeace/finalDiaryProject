@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,12 @@ public class DiaryService {
 
 	private final DiaryRepository diaryRepository;
 
-
-	public List<DiaryResponseDTO> searchDiaryByClassId(int classId){
+	public List<DiaryResponseDTO> searchDiaryByClassId(int classId) {
 		return diaryRepository.searchDiaryByClassId(classId);
+	}
+
+	public DiaryResponseDTO searchDetailById(int diaryId) {
+		return diaryRepository.searchDetailById(diaryId);
 	}
 
 }
