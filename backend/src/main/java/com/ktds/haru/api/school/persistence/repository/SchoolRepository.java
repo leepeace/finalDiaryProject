@@ -1,5 +1,7 @@
 package com.ktds.haru.api.school.persistence.repository;
 
+import java.util.List;
+
 import com.ktds.haru.api.school.presentation.dto.request.SchoolJoinRequestDTO;
 import com.ktds.haru.api.school.presentation.dto.request.SchoolRequestDTO;
 import com.ktds.haru.api.school.presentation.dto.response.SchoolResponseDTO;
@@ -26,5 +28,13 @@ public class SchoolRepository {
     * */
     public SchoolResponseDTO getSchoolPassword(SchoolJoinRequestDTO schoolJoinRequestDTO){
         return sqlSessionTemplate.selectOne("School.checkPwd", schoolJoinRequestDTO);
+    }
+
+
+    /*
+    * 키워드로 검색
+    * */
+    public List<SchoolResponseDTO> searchByKeyword(String keyword){
+        return sqlSessionTemplate.selectList("School.searchByKeyword", keyword);
     }
 }

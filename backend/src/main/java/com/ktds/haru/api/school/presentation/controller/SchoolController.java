@@ -1,8 +1,11 @@
 package com.ktds.haru.api.school.presentation.controller;
 
+import java.util.List;
+
 import com.ktds.haru.api.common.BaseResponse;
 import com.ktds.haru.api.school.presentation.dto.request.SchoolRequestDTO;
 import com.ktds.haru.api.school.presentation.dto.request.SchoolJoinRequestDTO;
+import com.ktds.haru.api.school.presentation.dto.response.SchoolResponseDTO;
 import com.ktds.haru.api.school.presentation.validator.SchoolValidator;
 import com.ktds.haru.api.school.service.SchoolService;
 import com.ktds.haru.api.user.service.UserService;
@@ -80,9 +83,15 @@ public class SchoolController {
     * 학급 검색하기
     * */
     @GetMapping("/")
-    public BaseResponse<?> searchSchoolClass(){
+    @Operation(summary = "학급 검색하기", description = "사용자는 자신이 원하는 학급의 닉네임을 검색할 수 있다.")
+    public BaseResponse<?> searchSchoolClass(@RequestParam String keyword){
+        List<SchoolResponseDTO> response = schoolService.searchByKeyword(keyword);
+        if(response == null){
+            return new BaseResponse<>(null, HttpStatus.NO_CONTENT.value(), "학급 검색하기 조회 결과 없음");
+        }
 
-        return new BaseResponse<>(true, HttpStatus.OK.value(), "학급 검색하기 성공");
+
+        return new BaseResponse<>(response, HttpStatus.OK.value(), "학급 검색하기 성공");
     }
 
 

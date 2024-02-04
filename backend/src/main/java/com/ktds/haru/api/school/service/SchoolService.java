@@ -1,5 +1,7 @@
 package com.ktds.haru.api.school.service;
 
+import java.util.List;
+
 import com.ktds.haru.api.school.persistence.repository.SchoolRepository;
 import com.ktds.haru.api.school.persistence.repository.SchoolUserRepository;
 import com.ktds.haru.api.school.presentation.dto.request.SchoolJoinRequestDTO;
@@ -80,5 +82,10 @@ public class SchoolService {
             return false;
         }
         return true;
+    }
+
+
+    public List<SchoolResponseDTO> searchByKeyword(String keyword){
+        return schoolRepository.searchByKeyword(keyword);
     }
 }

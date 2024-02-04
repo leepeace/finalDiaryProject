@@ -4,31 +4,29 @@
 
 <mapper namespace="School">
     <insert id="createClass">
-        insert into
-            school_class (schoolName, schoolGrade, schoolClass, schoolPwd, nickname)
-        values
-            (#{schoolName}, #{schoolGrade}, #{schoolClass}, #{schoolPwd}, #{nickname})
+        insert into school_class (schoolName, schoolGrade, schoolClass, schoolPwd, nickname)
+        values (#{schoolName}, #{schoolGrade}, #{schoolClass}, #{schoolPwd}, #{nickname})
     </insert>
 
     <select id="getCurrentId" resultType="int">
-        SELECT
-            classId
-        FROM
-            school_class
-        ORDER BY
-            classId DESC
-        LIMIT 1
+        SELECT classId
+        FROM school_class
+        ORDER BY classId DESC LIMIT 1
     </select>
 
     <select id="checkPwd" resultType="schoolResponse" parameterType="schoolJoinRequest">
-        SELECT
-            *
-        FROM
-            school_class
-        WHERE
-            schoolPwd=#{schoolPwd}
-        AND
-            classId=#{classId}
+        SELECT *
+        FROM school_class
+        WHERE schoolPwd = #{schoolPwd}
+          AND classId = #{classId}
+    </select>
+
+
+    <select id="searchByKeyword" parameterType="String" resultType="schoolResponse">
+        SELECT *
+        FROM school_class
+        WHERE nickname LIKE CONCAT('%', #{keyword}, '%')
+
     </select>
 
 </mapper>
