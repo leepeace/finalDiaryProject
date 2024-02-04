@@ -10,7 +10,7 @@ import lombok.*;
 @Tag(name = "학급 response")
 public class SchoolResponseDTO {
 
-    private int class_id;
+    private int classId;
 
     private String schoolName;
 

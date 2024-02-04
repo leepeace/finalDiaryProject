@@ -37,4 +37,9 @@ public class SchoolRepository {
     public List<SchoolResponseDTO> searchByKeyword(String keyword){
         return sqlSessionTemplate.selectList("School.searchByKeyword", keyword);
     }
+
+
+    public List<SchoolResponseDTO> searchSchoolById(int userId){
+        return sqlSessionTemplate.selectList("School.searchById", userId);
+    }
 }

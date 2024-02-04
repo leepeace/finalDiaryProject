@@ -4,10 +4,8 @@
 
 <mapper namespace="SchoolUser">
     <insert id="createSchoolUser" parameterType="schoolUser">
-        insert into
-            school_class_has_user
-        values
-            (#{classId}, #{userId}, #{role})
+        insert into school_class_has_user
+        values (#{classId}, #{userId}, #{role})
     </insert>
 
 

@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Diary"></mapper>
+
+<mapper namespace="Diary">
+    <select id="searchDiaryByClassId" parameterType="int" resultType="diaryResponse">
+        SELECT *
+        FROM diary
+        WHERE classId = #{classId}
+    </select>
+
+
+</mapper>

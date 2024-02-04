@@ -19,4 +19,8 @@ public class UserValidator extends CommonValidator {
         checkStringType(userRequestDTO.getNickname(), "닉네임");
     }
 
+    public void validateLoginId(String loginId){
+        checkStringType(loginId, "아이디");
+    }
+
 }

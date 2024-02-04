@@ -26,7 +26,14 @@
         SELECT *
         FROM school_class
         WHERE nickname LIKE CONCAT('%', #{keyword}, '%')
+    </select>
 
+    <select id="searchById" parameterType="int" resultType="schoolResponse">
+        select *
+        from school_class
+        where classId IN (select classId
+                           from school_class_has_user
+                           where userId = #{user_id})
     </select>
 
 </mapper>
