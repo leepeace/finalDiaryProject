@@ -1,62 +1,15 @@
 package com.ktds.haru.api.user.service;
 
-import com.ktds.haru.api.user.persistence.repository.UserRepository;
 import com.ktds.haru.api.user.presentation.dto.request.LoginRequestDTO;
 import com.ktds.haru.api.user.presentation.dto.request.UserRequestDTO;
-import com.ktds.haru.api.user.presentation.dto.response.UserResponseDTO;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-@Service
-@Slf4j
-@RequiredArgsConstructor
-public class UserService {
-
-    private final UserRepository userRepository;
-
-    
+public interface UserService {
     //회원가입
-    public boolean signUp(UserRequestDTO user){
-        int result = userRepository.signUp(user);
-
-        //회원가입에 실패한 경우
-        if(result <= 0){
-            return false;
-        }
-
-        return true;
-    }
+    boolean signUp(UserRequestDTO user);
 
     //로그인
-    public boolean login(LoginRequestDTO loginRequestDTO){
-        UserResponseDTO userResponseDTO = userRepository.login(loginRequestDTO);
-
-        //기존 회원 정보가 없는 경우
-        if(userResponseDTO == null){
-            return false;
-        }
-
-        return true;
-    }
-
-
+    boolean login(LoginRequestDTO loginRequestDTO);
 
     //아이디 중복 체크
-    public boolean checkValidateId(String userId){
-        String checkResult = userRepository.checkValidateId(userId);
-
-        //아이디가 중복된 경우
-        if(checkResult == null){
-            return false;
-        }
-        //아이디가 중복되지 않은 경우
-        return true;
-    }
-
-
-    //사용자 아이디로 pk id 가져오기
-    public int getUserIdById(String loginId){
-        return userRepository.getUserId(loginId);
-    }
+    boolean checkValidateId(String userId);
 }

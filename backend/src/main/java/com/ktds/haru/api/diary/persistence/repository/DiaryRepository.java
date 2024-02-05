@@ -1,6 +1,7 @@
 package com.ktds.haru.api.diary.persistence.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,10 @@ public class DiaryRepository {
     public DiaryResponseDTO searchDetailById(int diaryId){
         return sqlSessionTemplate.selectOne("Diary.searchDetailById", diaryId);
     }
+
+    public int deleteById(Map<String, Object> params) {
+        return sqlSessionTemplate.delete("Diary.deleteById", params);
+    }
+
 
 }

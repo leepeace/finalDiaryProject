@@ -16,4 +16,10 @@
         WHERE diaryId = #{diaryId}
     </select>
 
+    <delete id="deleteById" parameterType="Map">
+        DELETE
+        FROM diary
+        WHERE diaryId=#{diaryId} AND userId=#{userId}
+    </delete>
+
 </mapper>

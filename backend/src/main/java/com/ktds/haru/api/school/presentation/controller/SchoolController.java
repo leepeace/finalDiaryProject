@@ -2,6 +2,8 @@ package com.ktds.haru.api.school.presentation.controller;
 
 import java.util.List;
 
+import com.ktds.haru.api.school.service.impl.SchoolServiceImpl;
+import com.ktds.haru.api.user.service.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +17,7 @@ import com.ktds.haru.api.school.presentation.dto.request.SchoolJoinRequestDTO;
 import com.ktds.haru.api.school.presentation.dto.request.SchoolRequestDTO;
 import com.ktds.haru.api.school.presentation.dto.response.SchoolResponseDTO;
 import com.ktds.haru.api.school.presentation.validator.SchoolValidator;
-import com.ktds.haru.api.school.service.SchoolService;
 import com.ktds.haru.api.user.presentation.validator.UserValidator;
-import com.ktds.haru.api.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,9 +31,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SchoolController {
 
-	private final SchoolService schoolService;
+	private final SchoolServiceImpl schoolService;
 	private final SchoolValidator schoolValidator;
-	private final UserService userService;
+	private final UserServiceImpl userServiceImpl;
 
 	private final UserValidator userValidator;
 
@@ -46,7 +46,7 @@ public class SchoolController {
 		//NULL 검증
 		schoolValidator.validateSchoolRequestDTO(schoolRequestDTO);
 
-		int userId = userService.getUserIdById(id);//로그인 아이디로 pk id를 얻어옴
+		int userId = userServiceImpl.getUserIdById(id);//로그인 아이디로 pk id를 얻어옴
 
 		boolean result = schoolService.createClass(schoolRequestDTO, userId);
 		if (!result) {
