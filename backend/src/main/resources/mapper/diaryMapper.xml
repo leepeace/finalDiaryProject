@@ -23,7 +23,14 @@
     </delete>
 
     <insert id="createDiary" parameterType="Map">
-        INSERT INTO diary(title, content, userId, categoryId, classId)
-        VALUES(#{title}, #{content}, #{userId}, #{categoryId}, #{classId})
+        INSERT INTO diary(title, content, userId, classId)
+        VALUES(#{title}, #{content}, #{userId}, #{classId})
     </insert>
+
+    <update id="updateDiary" parameterType="Map">
+        UPDATE diary
+        SET title=#{title}, content=#{content}, regDate = now()
+        WHERE userId=#{userId} AND diaryId=#{diaryId}
+    </update>
+
 </mapper>

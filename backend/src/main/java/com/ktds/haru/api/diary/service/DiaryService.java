@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ktds.haru.api.diary.presentation.dto.request.DiaryRequestDTO;
+import com.ktds.haru.api.diary.presentation.dto.request.DiaryUpdateRequestDTO;
 import com.ktds.haru.api.user.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +53,6 @@ public class DiaryService {
         params.put("userId", userId);
         params.put("title", request.getTitle());
         params.put("content", request.getContent());
-        params.put("categoryId", request.getCategoryId());
         params.put("classId", request.getClassId());
 
         int result = diaryRepository.createDiary(params);
@@ -70,4 +70,17 @@ public class DiaryService {
     }
 
 
+    public boolean updateDiaryInfo(DiaryUpdateRequestDTO request) {
+        int userId = getUserId(request.getId());
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("title", request.getTitle());
+        params.put("content", request.getContent());
+        params.put("diaryId", request.getDiaryId());
+
+        int response = diaryRepository.updateDiaryInfo(params);
+
+        return response > 0;
+    }
 }

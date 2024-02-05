@@ -34,4 +34,8 @@ public class DiaryRepository {
         return sqlSessionTemplate.insert("Diary.createDiary", request);
     }
 
+    public int updateDiaryInfo(Map<String, Object> request){
+        return sqlSessionTemplate.update("Diary.updateDiary", request);
+    }
+
 }

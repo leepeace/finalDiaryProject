@@ -2,6 +2,8 @@ package com.ktds.haru.api.diary.presentation.controller;
 
 import java.util.List;
 
+import com.ktds.haru.api.diary.presentation.dto.request.DiaryUpdateRequestDTO;
+import com.ktds.haru.api.diary.presentation.validator.DiaryValidator;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DiaryController {
 
     private final DiaryService diaryService;
+    private final DiaryValidator diaryValidator;
 
     //일기장 등록
     @PostMapping("")
@@ -54,8 +57,17 @@ public class DiaryController {
     //일기장 수정
     @PutMapping
     @Operation(summary = "일기장 수정", description = "자신의 일기장을 수정할 수 있다.")
-    public BaseResponse<?> updateDiary(@Parameter(name = "id", description = "사용자의 아이디", required = true, example = "user123") @RequestParam String id) {
-        return null;
+    public BaseResponse<?> updateDiary(@RequestBody DiaryUpdateRequestDTO diaryUpdateRequestDTO) {
+        //null check
+        diaryValidator.validateDiaryUpdateRequestDTO(diaryUpdateRequestDTO);
+
+        boolean response = diaryService.updateDiaryInfo(diaryUpdateRequestDTO);
+        if (response) {
+            return new BaseResponse<>(response, HttpStatus.OK.value(), "일기장 수정 성공");
+        }
+
+
+        return new BaseResponse<>(response, HttpStatus.INTERNAL_SERVER_ERROR.value(), "일기장 수정 실패");
     }
 
     //일기장 상세 조회

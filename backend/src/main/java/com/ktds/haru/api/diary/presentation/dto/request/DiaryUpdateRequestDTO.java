@@ -9,14 +9,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DiaryRequestDTO {
+public class DiaryUpdateRequestDTO {
     private int diaryId;
 
     private String title;
 
     private String content;
 
-    private int classId;
-
     private String id;
+
 }
