@@ -30,7 +30,11 @@ public class DiaryController {
     @Operation(summary = "일기장 등록", description = "자신의 일기장을 등록할 수 있다.")
     public BaseResponse<?> createDiary(@RequestBody DiaryRequestDTO diaryRequestDTO) {
 
-        return null;
+        boolean response = diaryService.createDiary(diaryRequestDTO);
+        if (response) {
+            return new BaseResponse<>(response, HttpStatus.OK.value(), "일기장 등록 성공");
+        }
+        return new BaseResponse<>(response, HttpStatus.INTERNAL_SERVER_ERROR.value(), "일기장 등록 실패");
     }
 
     //일기장 삭제

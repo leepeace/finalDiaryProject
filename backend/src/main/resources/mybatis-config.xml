@@ -12,5 +12,6 @@
         <typeAlias type="com.ktds.haru.api.school.presentation.dto.request.SchoolRequestDTO" alias="schoolRequest"/>
         <typeAlias type="com.ktds.haru.api.school.presentation.dto.response.SchoolResponseDTO" alias="schoolResponse"/>
         <typeAlias type="com.ktds.haru.api.diary.presentation.dto.response.DiaryResponseDTO" alias="diaryResponse"/>
+        <typeAlias type="com.ktds.haru.api.diary.presentation.dto.request.DiaryRequestDTO" alias="diaryRequest"/>
     </typeAliases>
 </configuration>

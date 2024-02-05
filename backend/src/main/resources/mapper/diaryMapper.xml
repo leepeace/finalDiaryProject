@@ -22,4 +22,8 @@
         WHERE diaryId=#{diaryId} AND userId=#{userId}
     </delete>
 
+    <insert id="createDiary" parameterType="Map">
+        INSERT INTO diary(title, content, userId, categoryId, classId)
+        VALUES(#{title}, #{content}, #{userId}, #{categoryId}, #{classId})
+    </insert>
 </mapper>

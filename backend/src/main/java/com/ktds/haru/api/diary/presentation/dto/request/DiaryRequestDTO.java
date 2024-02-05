@@ -16,5 +16,5 @@ public class DiaryRequestDTO {
 	private int categoryId;
 	private int classId;
 
-	private int userId;
+	private String id;
 }
