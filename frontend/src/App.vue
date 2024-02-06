@@ -3,16 +3,16 @@
     <div id="wrap">
       <router-view />
     </div>
-    <!-- <the-footer></the-footer> -->
+    <the-footer></the-footer>
   </div>
 </template>
 
 <script>
-//import TheFooter from '@/components/common/TheFooter.vue'
+import TheFooter from '@/components/common/TheFooter.vue'
 export default {
   name: "App",
   components: {
-    //TheFooter
+    TheFooter
   },
 };
 </script>

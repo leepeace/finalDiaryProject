@@ -21,10 +21,10 @@
         </b-collapse>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="#" v-if="isLogin" @click="logout()" id="item-text"
+            <b-nav-item v-if="isLogin" @click="logout()" id="item-text"
               >로그아웃</b-nav-item
             >
-            <b-nav-item href="#" v-else id="item-text">로그인</b-nav-item>
+            <b-nav-item href="/user/login" v-else id="item-text">로그인</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar-nav>
