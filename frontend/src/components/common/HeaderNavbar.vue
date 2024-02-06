@@ -4,7 +4,7 @@
       <b-navbar-nav>
         <div id="logo-box">
           <router-link to="/" id="logo-link">
-            <img src="@/assets/images/main_logo.png" id="logo-image">
+            <img src="@/assets/images/main_logo.png" id="logo-image" />
           </router-link>
         </div>
         <b-collapse id="nav-text-collapse" is-nav>
@@ -19,7 +19,10 @@
         </b-collapse>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="#" id="item-text">로그인</b-nav-item>
+            <b-nav-item href="#" v-if="isLogin" @click="logout()" id="item-text"
+              >로그아웃</b-nav-item
+            >
+            <b-nav-item href="#" v-else id="item-text">로그인</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar-nav>
@@ -27,28 +30,35 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
 
 export default {
-  name: 'HeaderNavbar'
-}
+  name: "HeaderNavbar",
+  computed: {
+    ...mapState("userStore", ["isLogin"]),
+  },
+  methods: {
+    ...mapActions("userStore", ["logout"]),
+  },
+};
 </script>
 <style>
-  #logo-box {
-    display: flex;
-    justify-content: flex-end; /* 로고를 오른쪽으로 정렬 */
-    align-items: center; /* 세로 방향 가운데 정렬 */
-  }
+#logo-box {
+  display: flex;
+  justify-content: flex-end; /* 로고를 오른쪽으로 정렬 */
+  align-items: center; /* 세로 방향 가운데 정렬 */
+}
 
-  #logo-link {
-    text-decoration: none; /* 링크의 기본 텍스트 장식 제거 */
-  }
+#logo-link {
+  text-decoration: none; /* 링크의 기본 텍스트 장식 제거 */
+}
 
-  #logo-image {
-    margin-right: 35px; /* 이미지와 텍스트 간격 조절 */
-    height: 30px;
-  }
+#logo-image {
+  margin-right: 35px; /* 이미지와 텍스트 간격 조절 */
+  height: 30px;
+}
 
-  #item-text {
-    font-size: 25px; /* 텍스트 크기 조절 */
-  }
+#item-text {
+  font-size: 25px; /* 텍스트 크기 조절 */
+}
 </style>
