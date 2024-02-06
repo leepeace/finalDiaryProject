@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import AppMain from '@/views/AppMain.vue'
 import AppDiary from '@/views/AppDiary.vue'
 import AppUser from '@/views/AppUser.vue'
+import AppSchool from '@/views/AppSchool.vue'
 
 Vue.use(Router)
 
@@ -43,7 +44,18 @@ export default new Router({
                     component: () => import('@/components/user/SignUpView')
                 }
             ]
-
+        },
+        {
+            path: '/school',
+            name: 'School',
+            component: AppSchool,
+            children:[
+                {
+                    path: 'list',
+                    name: 'SchoolListView',
+                    component: () => import('@/components/school/SchoolListView')
+                }
+            ]
         }
     ]
 })

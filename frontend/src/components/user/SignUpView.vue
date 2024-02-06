@@ -1,80 +1,76 @@
 <template>
-  <div>
-    <!-- Entry Section -->
-    <section class="section journal-section">
-      <div class="container">
-        <div class="container-row container-row-journal">
-          <div class="container-item container-item-journal">
-            <form id="entryForm" action="">
-              <label for="entry-title" class="journal-label">제목 ✏️</label>
-              <input
-                type="text"
-                name="entry-title"
-                id="entry-title"
-                class="entry-text-title"
-                v-model="diaryInfo.title"
-                readonly
-              />
-              <div style="display: flex; justify-content: space-between">
-                <label for="entry" class="journal-label">일기 💭</label>
-                <p class="journal-label float-right" style="margin: 0">
-                  {{ formatDate(diaryInfo.regDate) }}
-                </p>
-              </div>
-              <textarea
-                name="daily-entry"
-                id="entry"
-                class="entry-text-box"
-                v-model="diaryInfo.content"
-                readonly
-              ></textarea>
+  <!-- Entry Section -->
+  <section class="section journal-section">
+    <div class="container">
+      <div class="container-row container-row-journal">
+        <div class="container-item container-item-journal">
+          <form id="entryForm" @submit.prevent="handleSubmit">
+            <label for="entry-id" class="journal-label">아이디</label>
+            <input
+              type="text"
+              name="entry-id"
+              id="entry-id"
+              class="entry-text-title"
+              v-model="formData.id"
+            />
+            <div style="display: flex; justify-content: space-between">
+              <label for="entry-password" class="journal-label">비밀번호</label>
+            </div>
+            <input
+              type="password"
+              name="entry-password"
+              id="entry-password"
+              class="entry-text-title"
+              v-model="formData.pwd"
+            />
+            <label for="entry-nickname" class="journal-label">닉네임</label>
+            <input
+              type="text"
+              name="entry-nickname"
+              id="entry-nickname"
+              class="entry-text-title"
+              v-model="formData.nickname"
+            />
+            <div style="display: flex; justify-content: space-between">
               <button class="btn-main entry-submit-btn" type="submit">
-                수정
+                회원가입
               </button>
-            </form>
-          </div>
+              <router-link
+                to="/user/login"
+                id="login-link"
+                style="text-decoration: none"
+              >
+                <button class="btn-main entry-submit-btn">로그인</button>
+              </router-link>
+            </div>
+          </form>
         </div>
       </div>
-    </section>
-
-    <!-- Journal Entry Results -->
-    <section class="section sectionEntryResults" id="entryResultsSection">
-      <div class="container">
-        <div class="container-row entryResultRow"></div>
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 
-const diaryStore = "diaryStore";
+const userStore = "userStore";
 
 export default {
-  name: "DiaryDetail",
-  props: {
-    diaryId: {
-      type: Number,
-      required: false, //나중에 true로 바꾸기
-    },
-  },
-  mounted() {
-    this.getDiaryDetail(this.$route.params.diaryId); //나중에 this.diaryId로 바꾸기
+  name: "SignUpView",
+  data() {
+    return {
+      formData: {
+        id: "",
+        pwd: "",
+        nickname: "",
+      },
+    };
   },
   methods: {
-    ...mapActions(diaryStore, ["getDiaryDetail"]),
-
-    formatDate(dateTimeString) {
-      const date = new Date(dateTimeString);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, "0");
-      const day = date.getDate().toString().padStart(2, "0");
-      return `${year}-${month}-${day}`;
+    ...mapActions(userStore, ["signUp"]),
+    handleSubmit() {
+      this.signUp(this.formData);
     },
-  },
-  computed: {
-    ...mapState(diaryStore, ["diaryInfo"]),
   },
 };
 </script>
