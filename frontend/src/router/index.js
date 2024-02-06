@@ -1,0 +1,50 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import AppMain from '@/views/AppMain.vue'
+import AppDiary from '@/views/AppDiary.vue'
+import AppUser from '@/views/AppUser.vue'
+
+Vue.use(Router)
+
+
+export default new Router({
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            name: 'Main',
+            component: AppMain
+        },
+        {
+            path: '/diary',
+            name: 'Diary',
+            component: AppDiary,
+            children:[
+                {
+                    path: 'detail/:diaryId',
+                    name: 'DiaryDetailView',
+                    component: () => import('@/components/diary/DiaryDetailView')
+                }
+            ]
+        },
+        {
+            path: '/user',
+            name: 'User',
+            component: AppUser,
+            children:[
+                {
+                    path: 'login',
+                    name: 'LoginView',
+                    component: () => import('@/components/user/LoginView')
+                },
+                {
+                    path: 'signup',
+                    name: 'SignUpView',
+                    component: () => import('@/components/user/SignUpView')
+                }
+            ]
+
+        }
+    ]
+})
+
