@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="schoolInfo.length > 0">
+  <div style="margin: 100px">
+    <div v-if="schoolInfo.length > 0" class="school-grid">
       <!-- 여러 학교 정보를 동적으로 렌더링하기 위해 v-for 디렉티브 사용 -->
       <b-card
         v-for="(school, index) in schoolInfo"
@@ -8,7 +8,7 @@
         :title="school.schoolName"
         header-tag="header"
         footer-tag="footer"
-        style="max-width: 20rem"
+        style="max-width: 20rem; margin: 20px"
       >
         <template #header>
           <!-- 학교 정보를 표시 -->
@@ -45,13 +45,11 @@ const userStore = "userStore";
 export default {
   name: "SchoolListView",
   mounted() {
-    if (this.getUser) {
-      // sessionStorage에서 사용자 정보 확인
-      const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
-      if (userInfo) {
-        // 사용자 정보가 있을 때 getSchool 호출
-        this.getSchool(userInfo.id);
-      }
+    // sessionStorage에서 사용자 정보 확인
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+    if (userInfo) {
+      // 사용자 정보가 있을 때 getSchool 호출
+      this.getSchool(userInfo.id);
     }
   },
   methods: {
@@ -84,5 +82,16 @@ export default {
 }
 .entry-submit-btn {
   margin: 0;
+}
+
+.school-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 가로 5열 */
+  gap: 10px; /* 요소 사이의 간격 */
+}
+b-card {
+  max-width: calc(
+    20% - 10px
+  ); /* 20%로 설정하여 가로 5열로 나눈 후 간격을 빼줍니다. */
 }
 </style>
