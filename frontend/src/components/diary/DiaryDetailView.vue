@@ -52,15 +52,15 @@ import { mapActions, mapState } from "vuex";
 const diaryStore = "diaryStore";
 
 export default {
-  name: "DiaryDetail",
-  props: {
-    diaryId: {
-      type: Number,
-      required: false, //나중에 true로 바꾸기
-    },
+  name: "DiaryDetailView",
+  data() {
+    return {
+      diaryId: Number,
+    };
   },
   mounted() {
-    this.getDiaryDetail(this.$route.params.diaryId); //나중에 this.diaryId로 바꾸기
+    this.diaryId = this.$route.params.diaryId;
+    this.getDiaryDetail(this.diaryId); //나중에 this.diaryId로 바꾸기
   },
   methods: {
     ...mapActions(diaryStore, ["getDiaryDetail"]),

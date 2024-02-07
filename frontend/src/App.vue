@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import TheFooter from '@/components/common/TheFooter.vue'
+import TheFooter from "@/components/common/TheFooter.vue";
 export default {
   name: "App",
   components: {
-    TheFooter
+    TheFooter,
   },
 };
 </script>
@@ -30,7 +30,7 @@ export default {
   font-family: "omyu_pretty", sans-serif;
   position: relative;
   min-height: 100%;
-  padding-bottom: 500px;
+  padding-bottom: 700px;
   background-color: rgba(175, 238, 238, 0.3);
 }
 </style>

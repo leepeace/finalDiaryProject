@@ -1,11 +1,12 @@
-import {getDiaryDetail} from '@/api/diary'
+import {getDiaryDetail, getAllDiary} from '@/api/diary'
 
 
 const diaryStore = {
     namespaced: true,
     // state: 변수들의 집합
     state:{
-        diaryInfo :null
+        diaryInfo :null,
+        diaryList:{}
     },
     /*
         Gettes: state의 변수들을 get하는역할을 한다.
@@ -15,6 +16,9 @@ const diaryStore = {
     getDiary: state =>{
         return state.diaryInfo
     },
+    getDiaryList: state=>{
+        return state.diaryList
+    }
    },
     /*
         Mutations: 변수들을 조작하는 함수들의 집합
@@ -23,6 +27,9 @@ const diaryStore = {
    mutations:{
     SET_DIARY:(state, data) => {
         state.diaryInfo = data
+    },
+    SET_DIARY_LIST:(state, data)=>{
+        state.diaryList = data
     }
    },
     /*
@@ -37,6 +44,17 @@ const diaryStore = {
         })
         .catch(error => {
             alert('존재하지 않는 일기장입니다.')
+            console.error(error)
+            window.history.back()
+        })
+    },
+    async getDiaryIdByClassId({commit}, classId){
+        await getAllDiary(classId)
+        .then(({data})=>{
+            commit('SET_DIARY_LIST', data.result)
+        })
+        .catch(error =>{
+            alert('학급의 일기장이 존재하지 않습니다.')
             console.error(error)
             window.history.back()
         })

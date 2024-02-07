@@ -18,7 +18,7 @@
         <!-- 상세 보기 버튼 -->
         <button
           class="btn-main entry-submit-btn"
-          @click="goToDiaryList(school.classId)"
+          @click="goToDiaryDetail(diary.diaryId)"
         >
           상세보기
         </button>
@@ -49,6 +49,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import router from "@/router";
 const diaryStore = "diaryStore";
 
 export default {
@@ -61,8 +62,6 @@ export default {
   },
   mounted() {
     this.classId = this.$route.params.classId;
-    console.log(this.classId);
-
     this.getDiaryIdByClassId(this.classId);
   },
   methods: {
@@ -73,6 +72,9 @@ export default {
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const day = date.getDate().toString().padStart(2, "0");
       return `${year}-${month}-${day}`;
+    },
+    goToDiaryDetail(diaryId) {
+      router.push({ name: "DiaryDetailView", params: { diaryId } });
     },
   },
   computed: {

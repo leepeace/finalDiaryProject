@@ -13,17 +13,20 @@ const userStore = {
     },
     getUserId: () => {
       return JSON.parse(sessionStorage.getItem('userInfo'));
+    },
+    getIsLogin:()=>{
+      return JSON.parse(sessionStorage.getItem("isLogin"));
     }
   },
   mutations: {
     SET_USER: (state, data) => {
       state.userInfo = data;
-      state.isLogin = true; // 사용자 로그인 상태 변경
       sessionStorage.setItem("userInfo", JSON.stringify(data));
+      sessionStorage.setItem("isLogin", true);// 사용자 로그인 상태 변경
     },
     LOGOUT(state) {
       state.userInfo = {};
-      state.isLogin = false; // 사용자 로그아웃 상태 변경
+      sessionStorage.setItem("isLogin", false)// 사용자 로그아웃 상태 변경
     },
   },
   actions: {

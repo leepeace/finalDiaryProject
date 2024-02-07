@@ -16,9 +16,10 @@
                 name="entry-title"
                 id="entry-title"
                 class="entry-text-title"
-                placeholder="참여할 학급을 검색하세요"
+                placeholder="참여할 학급의 닉네임을 검색하세요"
+                v-model="searchQuery"
               />
-              <button class="btn-main entry-submit-btn" type="submit">
+              <button class="btn-main entry-submit-btn" @click="searchSchool()">
                 검색
               </button>
             </div>
@@ -75,6 +76,11 @@ const userStore = "userStore";
 
 export default {
   name: "SchoolListView",
+  data() {
+    return {
+      searchQuery: "", // 입력된 검색어를 저장할 변수
+    };
+  },
   mounted() {
     // sessionStorage에서 사용자 정보 확인
     const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
@@ -87,6 +93,14 @@ export default {
     ...mapActions(schoolStore, ["getSchool"]),
     goToDiaryList(classId) {
       router.push({ name: "DiaryListView", params: { classId } });
+    },
+    searchSchool() {
+      this.$router.push({
+        name: "SchoolSearchView",
+        query: {
+          searchQuery: this.searchQuery,
+        },
+      });
     },
   },
   computed: {
