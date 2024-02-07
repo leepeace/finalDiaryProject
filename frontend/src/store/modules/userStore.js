@@ -14,19 +14,22 @@ const userStore = {
     getUserId: () => {
       return JSON.parse(sessionStorage.getItem('userInfo'));
     },
-    getIsLogin:(state)=>{
+    getIsLogin: (state) => {
       return state.isLogin
+      //return JSON.parse(sessionStorage.getItem('isLogin'));
     }
   },
   mutations: {
     SET_USER: (state, data) => {
       state.userInfo = data;
       sessionStorage.setItem("userInfo", JSON.stringify(data));
+      sessionStorage.setItem("isLogin", true);
       state.isLogin=true// 사용자 로그인 상태 변경
     },
     LOGOUT(state) {
       state.userInfo = {};
-      state.isLogin=false// 사용자 로그아웃 상태 변경
+      state.isLogin = false// 사용자 로그아웃 상태 변경
+      sessionStorage.setItem("isLogin", false);
       sessionStorage.setItem("userInfo", {});
     },
   },
@@ -61,6 +64,7 @@ const userStore = {
     },
     logout({ commit }) {
       commit("LOGOUT"); // 로그아웃 상태 변경
+      location.reload();
     },
   },
 };
