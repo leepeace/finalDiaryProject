@@ -25,6 +25,11 @@ export default new Router({
                     path: 'detail/:diaryId',
                     name: 'DiaryDetailView',
                     component: () => import('@/components/diary/DiaryDetailView')
+                },
+                {
+                    path: 'list/:classId',
+                    name: 'DiaryListView',
+                    component: () => import('@/components/diary/DiaryListView')
                 }
             ]
         },
