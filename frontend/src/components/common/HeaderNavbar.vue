@@ -21,7 +21,7 @@
         </b-collapse>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item v-if="isLogin" @click="logout()" id="item-text"
+            <b-nav-item v-if="getIsLogin" @click="logout" id="item-text"
               >{{ this.loginId }}님, 로그아웃</b-nav-item
             >
             <b-nav-item href="/user/login" v-else id="item-text"
@@ -34,27 +34,24 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "HeaderNavbar",
   data() {
     return {
       loginId: null,
-      isLogin: false,
     };
   },
   mounted() {
-    this.loginId = JSON.parse(sessionStorage.getItem("userInfo")).id;
-    this.isLogin = JSON.parse(sessionStorage.getItem("isLogin"));
+    var userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+    if(userInfo !== null) {
+      this.loginId = userInfo.id;
+    } 
   },
-  computed: {
-    ...mapState("userStore", ["isLogin"]),
-    ...mapGetters("userStore", ["getIsLogin"]),
 
-    // getLoginId() {
-    //   return this.$store.getters["userStore/getUserId"]; // 직접 호출합니다.
-    // },
+  computed: {
+    ...mapGetters("userStore", ["getIsLogin"]),
   },
   methods: {
     ...mapActions("userStore", ["logout"]),
