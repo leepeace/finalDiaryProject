@@ -5,15 +5,18 @@
 
 <mapper namespace="Diary">
     <select id="searchDiaryByClassId" parameterType="int" resultType="diaryResponse">
-        SELECT *
-        FROM diary
-        WHERE classId = #{classId}
+        select diaryId, title, content, regDate, id, nickname from diary
+        inner join user
+        on diary.userId = user.userId
+        where diary.classId=#{classId}
     </select>
 
     <select id="searchDetailById" parameterType="int" resultType="diaryResponse">
-        SELECT *
-        FROM diary
-        WHERE diaryId = #{diaryId}
+        select diaryId, title, content, regDate, id, nickname
+        from diary
+        inner join user
+        on diary.userId = user.userId
+        where diaryId=#{diaryId}
     </select>
 
     <delete id="deleteById" parameterType="Map">

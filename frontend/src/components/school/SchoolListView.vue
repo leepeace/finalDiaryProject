@@ -96,7 +96,7 @@ export default {
     },
     searchSchool() {
       this.$router.push({
-        name: "SchoolSearchView",
+        path: "/school/search",
         query: {
           searchQuery: this.searchQuery,
         },

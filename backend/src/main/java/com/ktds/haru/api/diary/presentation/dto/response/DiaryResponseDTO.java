@@ -17,7 +17,8 @@ public class DiaryResponseDTO {
 	private String title;
 	private String content;
 	private LocalDateTime regDate;
-	private int userId;
+	private String id;
+	private String nickname;
 
 	
 }

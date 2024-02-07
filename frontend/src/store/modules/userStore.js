@@ -23,9 +23,12 @@ const userStore = {
       state.userInfo = data;
       sessionStorage.setItem("userInfo", JSON.stringify(data));
       sessionStorage.setItem("isLogin", true);// 사용자 로그인 상태 변경
+      state.isLogin=true
     },
     LOGOUT(state) {
       state.userInfo = {};
+      state.isLogin=false
+      sessionStorage.setItem("userInfo", {});
       sessionStorage.setItem("isLogin", false)// 사용자 로그아웃 상태 변경
     },
   },
@@ -44,6 +47,7 @@ const userStore = {
         console.error(error);
         window.history.back();
       }
+
     },
 
     async signUp(_, request) {

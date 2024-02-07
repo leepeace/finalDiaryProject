@@ -25,12 +25,19 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "TiquiTaca-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/TiquiTaca-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 
 #app {
-  font-family: "omyu_pretty", sans-serif;
+  font-family: "omyu_pretty", "sans-serif";
   position: relative;
   min-height: 100%;
-  padding-bottom: 700px;
+  padding-bottom: 800px;
   background-color: rgba(175, 238, 238, 0.3);
 }
 </style>

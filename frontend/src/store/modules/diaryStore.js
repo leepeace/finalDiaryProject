@@ -1,5 +1,4 @@
-import {getDiaryDetail, getAllDiary} from '@/api/diary'
-
+import {getDiaryDetail, getAllDiary, deleteDiary} from '@/api/diary'
 
 const diaryStore = {
     namespaced: true,
@@ -55,6 +54,18 @@ const diaryStore = {
         })
         .catch(error =>{
             alert('학급의 일기장이 존재하지 않습니다.')
+            console.error(error)
+            window.history.back()
+        })
+    },
+    async deleteMyDiary(_, {id, diaryId}){
+        await deleteDiary(id, diaryId)
+        .then(({data})=>{
+            if(data.resultCode==200){
+                alert('삭제에 성공했습니다')
+            }
+        })
+        .catch(error=>{
             console.error(error)
             window.history.back()
         })

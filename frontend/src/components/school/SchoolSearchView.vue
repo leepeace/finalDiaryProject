@@ -1,27 +1,31 @@
 <template>
-  <div>
-    <div v-if="diaryList && diaryList.length > 0" class="diary-grid">
+  <div style="margin: 100px 100px">
+    <div v-if="schoolInfo.length > 0" class="school-grid">
+      <!-- 여러 학교 정보를 동적으로 렌더링하기 위해 v-for 디렉티브 사용 -->
       <b-card
-        v-for="(diary, index) in diaryList"
+        v-for="(school, index) in schoolInfo"
         :key="index"
-        :title="diary.title"
+        :title="school.schoolName"
         header-tag="header"
         footer-tag="footer"
         style="max-width: 20rem; margin: 20px"
       >
         <template #header>
-          <h6 class="mb-0">우리의 일기장</h6>
+          <!-- 학교 정보를 표시 -->
+          <h6 class="mb-0">우리의 학급</h6>
         </template>
+        <!-- 학교 정보 텍스트 출력 -->
         <b-card-text>
-          작성일: {{ formatDate(diary.regDate) }}<br />
-          작성자: {{ diary.id }}
+          학년: {{ school.schoolGrade }}<br />
+          반: {{ school.schoolClass }}<br />
+          학급 닉네임: {{ school.nickname }}
         </b-card-text>
         <!-- 상세 보기 버튼 -->
         <button
           class="btn-main entry-submit-btn"
-          @click="goToDiaryDetail(diary.diaryId)"
+          @click.stop="showModal(school.classId)"
         >
-          상세보기
+          참여하기
         </button>
         <template #footer>
           <!-- 푸터 슬롯 -->
@@ -30,56 +34,74 @@
       </b-card>
     </div>
     <div v-else>
-      <!-- 일기 정보가 없을 때 출력할 메시지 -->
-      <div>
-        <b-card
-          title="우리의 일기"
-          tag="article"
-          img-src="https://placekitten.com/380/200"
-          img-alt="Image"
-          img-top
-          style="max-width: 20rem; margin: 50px"
-          class="mb-2"
-        >
-          <b-card-text> 아직 우리 학급의 일기장이 없어요! </b-card-text>
-        </b-card>
-      </div>
+      <!-- 학교 정보가 없을 때 출력할 메시지 -->
+      <p class="journal-label">검색한 학급이 없어요</p>
     </div>
+
+    <!-- 모달 -->
+    <b-modal
+      ref="my-modal"
+      hide-footer
+      title="참여할 학급의 비밀번호를 입력하세요."
+    >
+      <div class="d-block text-center">
+        <b-form-input type="password" v-model="pwd"></b-form-input>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <b-button class="mt-3" variant="outline-danger" block @click="hideModal"
+          >닫기</b-button
+        >
+        <b-button
+          class="mt-3"
+          variant="outline-warning"
+          block
+          @click="toggleModal"
+          >참여하기</b-button
+        >
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
-import router from "@/router";
-const diaryStore = "diaryStore";
-
+const schoolStore = "schoolStore";
 export default {
-  name: "DiaryListView",
-
+  name: "SchoolSearchView",
   data() {
     return {
+      keyword: null, //검색 키워드
+      pwd: null, //학급 비밀번호
+      loginId: null, //로그인 아이디
       classId: Number,
     };
   },
   mounted() {
-    this.classId = this.$route.params.classId;
-    this.getDiaryIdByClassId(this.classId);
+    this.keyword = this.$route.query.searchQuery;
+    this.loginId = JSON.parse(sessionStorage.getItem("userInfo"));
+    this.searchSchool(this.keyword);
   },
   methods: {
-    ...mapActions(diaryStore, ["getDiaryIdByClassId"]),
-    formatDate(dateTimeString) {
-      const date = new Date(dateTimeString);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, "0");
-      const day = date.getDate().toString().padStart(2, "0");
-      return `${year}-${month}-${day}`;
+    ...mapActions(schoolStore, ["searchSchool"]),
+    ...mapActions(schoolStore, ["joinSchool"]),
+    showModal(classId) {
+      this.$refs["my-modal"].show();
+      this.classId = classId;
     },
-    goToDiaryDetail(diaryId) {
-      router.push({ name: "DiaryDetailView", params: { diaryId } });
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
+    toggleModal() {
+      this.joinSchool({
+        id: this.loginId.id,
+        classId: this.classId,
+        schoolPwd: this.pwd,
+      });
+      this.$refs["my-modal"].toggle("#toggle-btn");
     },
   },
   computed: {
-    ...mapState(diaryStore, ["diaryList"]),
+    ...mapState(schoolStore, ["schoolInfo"]),
   },
 };
 </script>
@@ -106,7 +128,7 @@ export default {
   margin: 0;
 }
 
-.diary-grid {
+.school-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* 가로 5열 */
   gap: 10px; /* 요소 사이의 간격 */

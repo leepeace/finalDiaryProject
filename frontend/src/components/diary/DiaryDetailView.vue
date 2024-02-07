@@ -1,12 +1,18 @@
 <template>
   <div>
+    <header><h1 class="title">Our Diary</h1></header>
     <!-- Entry Section -->
     <section class="section journal-section">
       <div class="container">
         <div class="container-row container-row-journal">
           <div class="container-item container-item-journal">
             <form id="entryForm" action="">
-              <label for="entry-title" class="journal-label">제목 ✏️</label>
+              <div style="display: flex; justify-content: space-between">
+                <label for="entry-title" class="journal-label">제목 ✏️</label>
+                <label for="entry-title" class="journal-label"
+                  >작성자 {{ diaryInfo.id }}</label
+                >
+              </div>
               <input
                 type="text"
                 name="entry-title"
@@ -28,9 +34,22 @@
                 v-model="diaryInfo.content"
                 readonly
               ></textarea>
-              <button class="btn-main entry-submit-btn" type="submit">
-                수정
-              </button>
+              <div style="display: flex; align-items: center; gap: 20px">
+                <button
+                  class="btn-main entry-submit-btn"
+                  type="submit"
+                  v-if="diaryInfo.id === loginId.id"
+                >
+                  수정
+                </button>
+                <button
+                  class="btn-main entry-submit-btn"
+                  @click="deleteDiary(diaryInfo.diaryId)"
+                  v-if="diaryInfo.id === loginId.id"
+                >
+                  삭제
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -56,14 +75,17 @@ export default {
   data() {
     return {
       diaryId: Number,
+      loginId: null,
     };
   },
   mounted() {
     this.diaryId = this.$route.params.diaryId;
     this.getDiaryDetail(this.diaryId); //나중에 this.diaryId로 바꾸기
+    this.loginId = JSON.parse(sessionStorage.getItem("userInfo"));
   },
   methods: {
     ...mapActions(diaryStore, ["getDiaryDetail"]),
+    ...mapActions(diaryStore, ["deleteMyDiary"]),
 
     formatDate(dateTimeString) {
       const date = new Date(dateTimeString);
@@ -71,6 +93,9 @@ export default {
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const day = date.getDate().toString().padStart(2, "0");
       return `${year}-${month}-${day}`;
+    },
+    deleteDiary(diaryId) {
+      this.deleteMyDiary({ id: this.loginId.id, diaryId: diaryId });
     },
   },
   computed: {
@@ -105,6 +130,14 @@ export default {
 .container-row {
   width: 90%;
   margin: 0 auto;
+}
+
+.title {
+  color: lightcoral;
+  font-size: 3rem;
+  font-family: "TiquiTaca-Regular", "omyu_pretty", "sans-serif";
+  text-align: center;
+  margin: 30px;
 }
 
 /* Button Standard */
