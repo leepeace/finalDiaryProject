@@ -36,7 +36,7 @@
                 회원가입
               </button>
               <router-link
-                to="/user/login"
+                to="/"
                 id="login-link"
                 style="text-decoration: none"
               >

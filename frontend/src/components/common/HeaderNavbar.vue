@@ -3,9 +3,7 @@
     <b-navbar type="light" variant="light">
       <b-navbar-nav>
         <div id="logo-box">
-          <router-link to="/" id="logo-link">
-            <img src="@/assets/images/main_logo.png" id="logo-image" />
-          </router-link>
+          <img src="@/assets/images/main_logo.png" id="logo-image" />
         </div>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
@@ -14,20 +12,15 @@
         </b-collapse>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="/school/list" id="item-text"
-              >우리의 학급</b-nav-item
-            >
+            <b-nav-item href="/school/list" id="item-text">우리의 학급</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
-            <p>{{ isLoginUser }}</p>
             <b-nav-item v-if="isLoginUser" @click="logout" id="item-text"
               >{{ this.loginId }}님, 로그아웃</b-nav-item
             >
-            <b-nav-item href="/user/login" v-if="!isLoginUser" id="item-text"
-              >로그인</b-nav-item
-            >
+            <b-nav-item href="/" v-if="!isLoginUser" id="item-text">로그인</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar-nav>
@@ -36,7 +29,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-const userStore = "userStore"
+const userStore = "userStore";
 
 export default {
   name: "HeaderNavbar",
@@ -47,13 +40,13 @@ export default {
   },
 
   created() {
-    this.isLoginUser = sessionStorage.getItem("isLogin")
+    this.isLoginUser = sessionStorage.getItem("isLogin");
   },
   mounted() {
     var userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
-    if(userInfo !== null) {
+    if (userInfo !== null) {
       this.loginId = userInfo.id;
-    } 
+    }
   },
 
   computed: {
@@ -62,7 +55,7 @@ export default {
       get() {
         return this.getIsLogin;
       },
-    }
+    },
   },
   methods: {
     ...mapActions(userStore, ["logout"]),

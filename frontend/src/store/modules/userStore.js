@@ -16,7 +16,6 @@ const userStore = {
     },
     getIsLogin: (state) => {
       return state.isLogin
-      //return JSON.parse(sessionStorage.getItem('isLogin'));
     }
   },
   mutations: {
@@ -42,7 +41,7 @@ const userStore = {
           id: request.id, // 요청 객체에서 사용자 ID 가져오기
         };
         commit("SET_USER", user);
-        router.push("/"); //메인 페이지로 이동
+        router.push("/school/list"); //메인 페이지로 이동
       } catch (error) {
         alert("로그인에 실패했습니다.");
         console.error(error);
@@ -55,7 +54,7 @@ const userStore = {
       try {
         await signUpUser(request);
         alert("회원가입에 성공했습니다.");
-        router.push("/user/login"); //로그인 페이지로 이동
+        router.push("/"); //로그인 페이지로 이동
       } catch (error) {
         alert("회원가입에 실패했습니다.");
         console.error(error);
