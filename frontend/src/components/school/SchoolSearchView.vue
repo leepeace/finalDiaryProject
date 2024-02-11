@@ -3,7 +3,7 @@
     <div v-if="schoolInfo.length > 0" class="school-grid">
       <!-- 여러 학교 정보를 동적으로 렌더링하기 위해 v-for 디렉티브 사용 -->
       <b-card
-        v-for="(school, index) in schoolInfo"
+        v-for="(school, index) in searchSchoolInfo"
         :key="index"
         :title="school.schoolName"
         header-tag="header"
@@ -22,6 +22,10 @@
         </b-card-text>
         <!-- 상세 보기 버튼 -->
         <button
+          v-if="isJoined(school)"
+          class="btn-main entry-submit-btn">이미 참여 중인 학급</button>
+        <button
+          v-else
           class="btn-main entry-submit-btn"
           @click.stop="showModal(school.classId)"
         >
@@ -103,9 +107,15 @@ export default {
       });
       this.$refs["my-modal"].toggle("#toggle-btn");
     },
+    isJoined(school) {
+      return this.schoolInfo.some(info => {
+        return info.classId == school.classId
+      });
+    }
   },
   computed: {
     ...mapState(schoolStore, ["schoolInfo"]),
+    ...mapState(schoolStore, ["searchSchoolInfo"]),
   },
 };
 </script>
