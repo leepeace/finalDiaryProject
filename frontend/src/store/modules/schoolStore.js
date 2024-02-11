@@ -1,4 +1,4 @@
-import {getSchoolClass} from '@/api/school'
+import {getSchoolClass, searchByKeywordSchool} from '@/api/school'
 
 
 const schoolStore = {
@@ -28,6 +28,16 @@ const schoolStore = {
                 window.history.back();
             }
             
+        },
+        async searchSchool({ commit }, keyword) {
+            try {
+                const response = await searchByKeywordSchool(keyword);
+                commit('SET_SCHOOL', response.data.result)
+            }catch(error){
+                alert('학급 검색 조회 실패했습니다.')
+                console.error(error);
+                window.history.back();
+            }
         }
     }
 }

@@ -66,6 +66,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 const schoolStore = "schoolStore";
+
 export default {
   name: "SchoolSearchView",
   data() {
@@ -80,6 +81,9 @@ export default {
     this.keyword = this.$route.query.searchQuery;
     this.loginId = JSON.parse(sessionStorage.getItem("userInfo"));
     this.searchSchool(this.keyword);
+    if (this.loginId) {
+      this.getSchool(this.login)
+    }
   },
   methods: {
     ...mapActions(schoolStore, ["searchSchool"]),
