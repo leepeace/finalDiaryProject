@@ -47,19 +47,12 @@ const schoolStore = {
                 window.history.back();
             }
         },
+
         async joinSchool(_, request){
-            try{
-                const response = await joinSchoolClass(request);
-                if(response.data.resultCode == 200){
-                    router.push("/school/list");
-                }
-            }catch(error){
-                alert('학급 참여에 실패했습니다.')
-                console.error(error);
-                window.history.back();
-            }
-        
+            const response = await joinSchoolClass(request);
+            return response;
         },
+        
         async createSchool(_, {id, request}){
             try{
                 const response = await createSchoolClass(id, request);

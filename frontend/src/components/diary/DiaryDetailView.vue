@@ -37,7 +37,7 @@
               <div style="display: flex; align-items: center; gap: 20px">
                 <button
                   class="btn-main entry-submit-btn"
-                  type="submit"
+                  @click.prevent="goToUpdate(diaryInfo.diaryId)"
                   v-if="diaryInfo.id === loginId.id"
                 >
                   수정
@@ -67,6 +67,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import router from "@/router";
 
 const diaryStore = "diaryStore";
 
@@ -96,6 +97,9 @@ export default {
     },
     deleteDiary(diaryId) {
       this.deleteMyDiary({ id: this.loginId.id, diaryId: diaryId });
+    },
+    goToUpdate(diaryId) {
+      router.push({ name: "DiaryUpdateView", params: { diaryId } });
     },
   },
   computed: {

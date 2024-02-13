@@ -1,4 +1,4 @@
-import { loginUser, signUpUser } from "@/api/user";
+import { loginUser, signUpUser ,checkId} from "@/api/user";
 import router from "@/router";
 
 const userStore = {
@@ -12,10 +12,11 @@ const userStore = {
       return state.userInfo;
     },
     getUserId: () => {
-      return JSON.parse(sessionStorage.getItem('userInfo'));
+      const userInfo = sessionStorage.getItem('userInfo');
+      return JSON.parse(JSON.stringify(userInfo));
     },
-    getIsLogin: (state) => {
-      return state.isLogin
+    getIsLogin: () => {
+      return sessionStorage.getItem("isLogin");
     }
   },
   mutations: {
@@ -23,13 +24,10 @@ const userStore = {
       state.userInfo = data;
       sessionStorage.setItem("userInfo", JSON.stringify(data));
       sessionStorage.setItem("isLogin", true);
-      state.isLogin=true// 사용자 로그인 상태 변경
     },
-    LOGOUT(state) {
-      state.userInfo = {};
-      state.isLogin = false// 사용자 로그아웃 상태 변경
+    LOGOUT() {
       sessionStorage.setItem("isLogin", false);
-      sessionStorage.setItem("userInfo", {});
+      sessionStorage.setItem("userInfo", null);
     },
   },
   actions: {
@@ -65,6 +63,12 @@ const userStore = {
       commit("LOGOUT"); // 로그아웃 상태 변경
       location.reload();
     },
+
+    //id 중복 체크
+    async checkDuplicateId(_, id){
+      const response = await checkId(id);
+      return response
+    }
   },
 };
 

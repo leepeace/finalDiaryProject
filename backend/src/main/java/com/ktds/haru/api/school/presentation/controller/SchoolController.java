@@ -71,7 +71,7 @@ public class SchoolController {
 
 		//학급 패스원드가 틀린 경우
 		if (!checkResult) {
-			return new BaseResponse<>(false, HttpStatus.UNPROCESSABLE_ENTITY.value(), "학급 패스원드가 틀렸습니다.");
+			return new BaseResponse<>(false, HttpStatus.UNPROCESSABLE_ENTITY.value(), "학급 패스워드가 틀렸습니다.");
 		}
 
 		boolean result = schoolService.joinSchoolClass(schoolJoinRequestDTO);

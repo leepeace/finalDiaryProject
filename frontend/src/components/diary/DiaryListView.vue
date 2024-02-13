@@ -42,9 +42,8 @@
         <b-card
           title="우리의 일기"
           tag="article"
-          img-src="https://placekitten.com/380/200"
+          img-src="https://placekitten.com/480/210"
           img-alt="Image"
-          img-top
           style="max-width: 20rem; margin: 50px"
           class="mb-2"
         >

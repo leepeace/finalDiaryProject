@@ -5,14 +5,22 @@
         <div id="logo-box">
           <img src="@/assets/images/main_logo.png" id="logo-image" />
         </div>
-        <b-collapse id="nav-text-collapse" is-nav>
+        <b-collapse
+          id="nav-text-collapse"
+          is-nav
+          v-if="isLoginUser && loginId !== null"
+        >
           <b-navbar-nav>
             <b-nav-item href="/school/create" id="item-text"
               >학급 만들기</b-nav-item
             >
           </b-navbar-nav>
         </b-collapse>
-        <b-collapse id="nav-text-collapse" is-nav>
+        <b-collapse
+          id="nav-text-collapse"
+          is-nav
+          v-if="isLoginUser && loginId !== null"
+        >
           <b-navbar-nav>
             <b-nav-item href="/school/list" id="item-text"
               >우리의 학급</b-nav-item
@@ -21,12 +29,13 @@
         </b-collapse>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item v-if="isLoginUser" @click="logout" id="item-text"
+            <b-nav-item
+              v-if="isLoginUser && loginId !== null"
+              @click="logout"
+              id="item-text"
               >{{ this.loginId }}님, 로그아웃</b-nav-item
             >
-            <b-nav-item href="/" v-if="!isLoginUser" id="item-text"
-              >로그인</b-nav-item
-            >
+            <b-nav-item href="/" v-else id="item-text">로그인</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar-nav>
@@ -45,9 +54,6 @@ export default {
     };
   },
 
-  created() {
-    this.isLoginUser = sessionStorage.getItem("isLogin");
-  },
   mounted() {
     var userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
     if (userInfo !== null) {
@@ -56,7 +62,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters(userStore, ["getIsLogin"]),
+    ...mapGetters(userStore, ["getIsLogin", "getUserId"]),
+
     isLoginUser: {
       get() {
         return this.getIsLogin;

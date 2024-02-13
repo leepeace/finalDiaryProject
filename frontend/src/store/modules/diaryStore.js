@@ -1,4 +1,4 @@
-import {getDiaryDetail, getAllDiary, deleteDiary, createDiary} from '@/api/diary'
+import {getDiaryDetail, getAllDiary, deleteDiary, createDiary, updateDiary} from '@/api/diary'
 import router from "@/router";
 
 const diaryStore = {
@@ -77,6 +77,21 @@ const diaryStore = {
             if(data.resultCode==200){
                 alert('등록에 성공했습니다')
                 router.push("/diary/list/" + request.classId); //메인 페이지로 이동
+            }
+        })
+        .catch(error=>{
+            console.error(error)
+            alert("등록에 실패했습니다.")
+            window.history.back()
+        })
+    },
+    async updateDiaryInfo({commit}, request){
+        await updateDiary(request)
+        .then(({data})=>{
+            if(data.resultCode == 200){
+                alert("수정에 성공했습니다.")
+                commit('SET_DIARY', data.result)
+                router.push("/diary/detail/"+request.diaryId)
             }
         })
         .catch(error=>{

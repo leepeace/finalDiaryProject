@@ -72,6 +72,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import router from "@/router";
 const schoolStore = "schoolStore";
 
 export default {
@@ -104,9 +105,24 @@ export default {
         id: this.loginId.id,
         classId: this.classId,
         schoolPwd: this.pwd,
-      });
-      this.$refs["my-modal"].toggle("#toggle-btn");
+      })
+        .then((response) => {
+          if (response.data.resultCode == 200) {
+            router.push("/school/list");
+            alert("학급에 가입되었습니다.");
+            this.$refs["my-modal"].toggle("#toggle-btn");
+          } else {
+            alert("학급 패스워드가 일치하지 않습니다.");
+          }
+        })
+        .catch((error) => {
+          alert("학급 참여에 실패했습니다.");
+          console.error(error);
+          window.history.back();
+        });
     },
+
+    //학급 가입여부 확인 메서드
     isJoined(school) {
       if (this.schoolInfo !== null) {
         return this.schoolInfo.some((info) => {
