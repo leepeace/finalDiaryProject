@@ -43,7 +43,7 @@
 
 <script>
 import { mapActions } from "vuex";
-const schoolStore = "schoolStore";
+const diaryStore = "diaryStore";
 
 export default {
   name: "DiaryCreateView",
@@ -62,7 +62,7 @@ export default {
     this.formData.id = JSON.parse(sessionStorage.getItem("userInfo")).id;
   },
   methods: {
-    ...mapActions(schoolStore, ["createSchoolDiary"]),
+    ...mapActions(diaryStore, ["createSchoolDiary"]),
     handleSubmit() {
       this.createSchoolDiary(this.formData);
     },

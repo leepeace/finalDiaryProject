@@ -80,7 +80,7 @@ export default {
   },
   mounted() {
     this.diaryId = this.$route.params.diaryId;
-    this.getDiaryDetail(this.diaryId); //나중에 this.diaryId로 바꾸기
+    this.getDiaryDetail(this.diaryId);
     this.loginId = JSON.parse(sessionStorage.getItem("userInfo"));
   },
   methods: {

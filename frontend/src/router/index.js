@@ -64,6 +64,11 @@ export default new Router({
           name: "SchoolSearchView",
           component: () => import("@/components/school/SchoolSearchView"),
         },
+        {
+          path:"create",
+          name:"SchoolCreateView",
+          component: () => import("@/components/school/SchoolCreateView")
+        }
       ],
     },
   ],

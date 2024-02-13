@@ -7,12 +7,16 @@
         </div>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="#" id="item-text">일기장</b-nav-item>
+            <b-nav-item href="/school/create" id="item-text"
+              >학급 만들기</b-nav-item
+            >
           </b-navbar-nav>
         </b-collapse>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="/school/list" id="item-text">우리의 학급</b-nav-item>
+            <b-nav-item href="/school/list" id="item-text"
+              >우리의 학급</b-nav-item
+            >
           </b-navbar-nav>
         </b-collapse>
         <b-collapse id="nav-text-collapse" is-nav>
@@ -20,7 +24,9 @@
             <b-nav-item v-if="isLoginUser" @click="logout" id="item-text"
               >{{ this.loginId }}님, 로그아웃</b-nav-item
             >
-            <b-nav-item href="/" v-if="!isLoginUser" id="item-text">로그인</b-nav-item>
+            <b-nav-item href="/" v-if="!isLoginUser" id="item-text"
+              >로그인</b-nav-item
+            >
           </b-navbar-nav>
         </b-collapse>
       </b-navbar-nav>

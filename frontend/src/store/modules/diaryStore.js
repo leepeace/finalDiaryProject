@@ -1,4 +1,5 @@
 import {getDiaryDetail, getAllDiary, deleteDiary, createDiary} from '@/api/diary'
+import router from "@/router";
 
 const diaryStore = {
     namespaced: true,
@@ -63,11 +64,11 @@ const diaryStore = {
         .then(({data})=>{
             if(data.resultCode==200){
                 alert('삭제에 성공했습니다')
+                router.push("/school/list")
             }
         })
         .catch(error=>{
             console.error(error)
-            window.history.back()
         })
     },
     async createSchoolDiary(_, request){
@@ -75,6 +76,7 @@ const diaryStore = {
         .then(({data})=>{
             if(data.resultCode==200){
                 alert('등록에 성공했습니다')
+                router.push("/diary/list/" + request.classId); //메인 페이지로 이동
             }
         })
         .catch(error=>{

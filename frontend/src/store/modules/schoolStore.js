@@ -1,5 +1,5 @@
-import {getSchoolClass, searchByKeywordSchool} from '@/api/school'
-
+import {getSchoolClass, searchByKeywordSchool, joinSchoolClass, createSchoolClass} from '@/api/school'
+import router from '@/router'
 
 const schoolStore = {
     namespaced: true,
@@ -43,6 +43,31 @@ const schoolStore = {
                 commit('SET_SCHOOL_BY_KEYWORD', response.data.result)
             }catch(error){
                 alert('학급 검색 조회 실패했습니다.')
+                console.error(error);
+                window.history.back();
+            }
+        },
+        async joinSchool(_, request){
+            try{
+                const response = await joinSchoolClass(request);
+                if(response.data.resultCode == 200){
+                    router.push("/school/list");
+                }
+            }catch(error){
+                alert('학급 참여에 실패했습니다.')
+                console.error(error);
+                window.history.back();
+            }
+        
+        },
+        async createSchool(_, {id, request}){
+            try{
+                const response = await createSchoolClass(id, request);
+                if(response.data.resultCode == 200){
+                    router.push("/school/list");
+                }
+            }catch(error){
+                alert('학급 등록에 실패했습니다.')
                 console.error(error);
                 window.history.back();
             }
