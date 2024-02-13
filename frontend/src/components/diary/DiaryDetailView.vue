@@ -44,7 +44,7 @@
                 </button>
                 <button
                   class="btn-main entry-submit-btn"
-                  @click="deleteDiary(diaryInfo.diaryId)"
+                  @click.prevent="deleteDiary(diaryInfo.diaryId)"
                   v-if="diaryInfo.id === loginId.id"
                 >
                   삭제
@@ -96,7 +96,20 @@ export default {
       return `${year}-${month}-${day}`;
     },
     deleteDiary(diaryId) {
-      this.deleteMyDiary({ id: this.loginId.id, diaryId: diaryId });
+      this.deleteMyDiary({ id: this.loginId.id, diaryId: diaryId })
+        .then((response) => {
+          if (response.data.resultCode == 200) {
+            alert("삭제 성공했습니다.");
+            router.push("/diary/list/" + this.$route.params.classId);
+          } else {
+            alert("삭제 실패했습니다.");
+          }
+        })
+        .catch((error) => {
+          alert("삭제 실패했습니다.");
+          console.error(error);
+          window.history.back();
+        });
     },
     goToUpdate(diaryId) {
       router.push({ name: "DiaryUpdateView", params: { diaryId } });

@@ -59,17 +59,11 @@ const diaryStore = {
             window.history.back()
         })
     },
+
+    //일기장 삭제 비동기 메서드
     async deleteMyDiary(_, {id, diaryId}){
-        await deleteDiary(id, diaryId)
-        .then(({data})=>{
-            if(data.resultCode==200){
-                alert('삭제에 성공했습니다')
-                router.push("/school/list")
-            }
-        })
-        .catch(error=>{
-            console.error(error)
-        })
+        const response = await deleteDiary(id, diaryId)
+       return response;
     },
     async createSchoolDiary(_, request){
         await createDiary(request)

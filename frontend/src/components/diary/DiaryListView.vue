@@ -81,7 +81,8 @@ export default {
       return `${year}-${month}-${day}`;
     },
     goToDiaryDetail(diaryId) {
-      router.push({ name: "DiaryDetailView", params: { diaryId } });
+      const classId = this.classId;
+      router.push({ name: "DiaryDetailView", params: { diaryId, classId } });
     },
     goToDiaryCreate() {
       const classId = this.classId;
