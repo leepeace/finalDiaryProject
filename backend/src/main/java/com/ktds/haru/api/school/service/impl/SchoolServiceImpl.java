@@ -92,8 +92,12 @@ public class SchoolServiceImpl implements SchoolService {
 	/*
 	 * 로그인한 사용자의 pk id를 얻어옴
 	 * */
-	public int getUserId(String loginId) {
-		return userRepository.getUserId(loginId);
+	public Integer getUserId(String loginId) {
+		Integer response = userRepository.getUserId(loginId);
+		if (response == null) {
+			throw new NullPointerException("User ID not found for login ID: " + loginId);
+		}
+		return response;
 	}
 
 }

@@ -1,4 +1,4 @@
-import {getDiaryDetail, getAllDiary, deleteDiary} from '@/api/diary'
+import {getDiaryDetail, getAllDiary, deleteDiary, createDiary} from '@/api/diary'
 
 const diaryStore = {
     namespaced: true,
@@ -67,6 +67,19 @@ const diaryStore = {
         })
         .catch(error=>{
             console.error(error)
+            window.history.back()
+        })
+    },
+    async createSchoolDiary(_, request){
+        await createDiary(request)
+        .then(({data})=>{
+            if(data.resultCode==200){
+                alert('등록에 성공했습니다')
+            }
+        })
+        .catch(error=>{
+            console.error(error)
+            alert("등록에 실패했습니다.")
             window.history.back()
         })
     }

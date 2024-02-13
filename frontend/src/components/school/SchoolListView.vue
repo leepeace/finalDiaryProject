@@ -27,7 +27,7 @@
         </div>
       </div>
     </section>
-    <div v-if="schoolInfo.length > 0" class="school-grid">
+    <div v-if="schoolInfo && schoolInfo.length > 0" class="school-grid">
       <!-- 여러 학교 정보를 동적으로 렌더링하기 위해 v-for 디렉티브 사용 -->
       <b-card
         v-for="(school, index) in schoolInfo"

@@ -1,46 +1,73 @@
 <template>
-    <div>
-        <!-- Entry Section -->
-        <section class="section journal-section">
-            <div class="container">
-                <div class="container-row container-row-journal">
-                <div class="container-item container-item-journal">
-                    <form id="entryForm" action="">
-                    <label for="entry-title" class="journal-label">Entry Title</label>
-                    <input
-                        type="text"
-                        name="entry-title"
-                        id="entry-title"
-                        class="entry-text-title"
-                        placeholder="Name of entry ✏️"
-                    />
-                    <label for="entry" class="journal-label">Today's Entry</label>
-                    <textarea
-                        name="daily-entry"
-                        id="entry"
-                        class="entry-text-box"
-                        placeholder="What's on your mind today? 💭"
-                    ></textarea>
-                    <button class="btn-main entry-submit-btn" type="submit">Submit</button>
-                    </form>
-                </div>
-                </div>
-            </div>
-            </section>
+  <div>
+    <!-- Entry Section -->
+    <section class="section journal-section">
+      <div class="container">
+        <div class="container-row container-row-journal">
+          <div class="container-item container-item-journal">
+            <form id="entryForm" @submit.prevent="handleSubmit">
+              <label for="entry-title" class="journal-label">제목</label>
+              <input
+                type="text"
+                name="entry-title"
+                id="entry-title"
+                v-model="formData.title"
+                class="entry-text-title"
+                placeholder="Name of entry ✏️"
+              />
+              <label for="entry" class="journal-label">오늘의 일기</label>
+              <textarea
+                name="daily-entry"
+                id="entry"
+                class="entry-text-box"
+                v-model="formData.content"
+                placeholder="What's on your mind today? 💭"
+              ></textarea>
+              <button class="btn-main entry-submit-btn" type="submit">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <!-- Journal Entry Results -->
-            <section class="section sectionEntryResults" id="entryResultsSection">
-            <div class="container">
-                <div class="container-row entryResultRow"></div>
-            </div>
-            </section>
-    </div>
+    <!-- Journal Entry Results -->
+    <section class="section sectionEntryResults" id="entryResultsSection">
+      <div class="container">
+        <div class="container-row entryResultRow"></div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+const schoolStore = "schoolStore";
+
 export default {
-    name: 'DiaryDetail'
-}
+  name: "DiaryCreateView",
+  data() {
+    return {
+      formData: {
+        title: "",
+        content: "",
+        id: "", //login id
+        classId: "",
+      },
+    };
+  },
+  mounted() {
+    this.formData.classId = this.$route.params.classId;
+    this.formData.id = JSON.parse(sessionStorage.getItem("userInfo")).id;
+  },
+  methods: {
+    ...mapActions(schoolStore, ["createSchoolDiary"]),
+    handleSubmit() {
+      this.createSchoolDiary(this.formData);
+    },
+  },
+};
 </script>
 
 <style>
@@ -202,5 +229,4 @@ export default {
   text-decoration: underline;
   text-decoration-color: lightgoldenrodyellow;
 }
-
 </style>

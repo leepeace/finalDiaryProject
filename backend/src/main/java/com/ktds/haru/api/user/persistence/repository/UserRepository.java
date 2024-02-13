@@ -30,7 +30,7 @@ public class UserRepository {
     }
 
 
-    public int getUserId(String id) {
+    public Integer getUserId(String id) {
         return sqlSessionTemplate.selectOne("User.getUserId", id);
     }
 }

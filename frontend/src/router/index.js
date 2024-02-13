@@ -30,6 +30,11 @@ export default new Router({
           name: "DiaryListView",
           component: () => import("@/components/diary/DiaryListView"),
         },
+        {
+          path: "create",
+          name: "DiaryCreateView",
+          component: () => import("@/components/diary/DiaryCreateView")
+        }
       ],
     },
     {

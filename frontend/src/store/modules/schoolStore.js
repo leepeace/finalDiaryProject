@@ -25,7 +25,11 @@ const schoolStore = {
         async getSchool({commit}, id){
             try{
                 const response = await getSchoolClass(id);
-                commit('SET_SCHOOL', response.data.result)
+                if(response.data.resultCode == 200){
+                    commit('SET_SCHOOL', response.data.result)
+                }else if(response.data.resultCode == 204){
+                    commit('SET_SCHOOL', null);
+                }
             }catch(error){
                 alert('나의 학급을 조회 실패했습니다.')
                 console.error(error);

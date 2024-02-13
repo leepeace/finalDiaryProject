@@ -33,7 +33,10 @@ public class DiaryService {
     }
 
     public boolean deleteById(int diaryId, String loginId) {
-        int userId = getUserId(loginId);
+        Integer userId = getUserId(loginId);
+        if(userId == null){
+            return false;
+        }
 
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);
@@ -47,7 +50,10 @@ public class DiaryService {
 
 
     public boolean createDiary(DiaryRequestDTO request){
-        int userId = getUserId(request.getId());
+        Integer userId = getUserId(request.getId());
+        if(userId == null){
+            return false;
+        }
 
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);
@@ -65,13 +71,20 @@ public class DiaryService {
     /*
      * 로그인한 사용자의 pk id를 얻어옴
      * */
-    public int getUserId(String loginId) {
-        return userRepository.getUserId(loginId);
+    public Integer getUserId(String loginId) {
+        Integer response = userRepository.getUserId(loginId);
+        if (response == null) {
+            throw new NullPointerException("User ID not found for login ID: " + loginId);
+        }
+        return response;
     }
 
 
     public boolean updateDiaryInfo(DiaryUpdateRequestDTO request) {
-        int userId = getUserId(request.getId());
+        Integer userId = getUserId(request.getId());
+        if(userId == null){
+            return false;
+        }
 
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);

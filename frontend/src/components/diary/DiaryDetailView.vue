@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header><h1 class="title">Our Diary</h1></header>
+    <header><h1 class="title">Today's Diary</h1></header>
     <!-- Entry Section -->
     <section class="section journal-section">
       <div class="container">

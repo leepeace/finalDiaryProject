@@ -1,5 +1,12 @@
 <template>
   <div>
+    <button
+      class="btn-main entry-submit-btn"
+      style="margin-left: auto; margin-right: 100px; margin-top: 40px"
+      @click="goToDiaryCreate()"
+    >
+      일기 쓰기
+    </button>
     <div v-if="diaryList && diaryList.length > 0" class="diary-grid">
       <b-card
         v-for="(diary, index) in diaryList"
@@ -76,6 +83,10 @@ export default {
     },
     goToDiaryDetail(diaryId) {
       router.push({ name: "DiaryDetailView", params: { diaryId } });
+    },
+    goToDiaryCreate() {
+      const classId = this.classId;
+      router.push({ name: "DiaryCreateView", params: { classId } });
     },
   },
   computed: {

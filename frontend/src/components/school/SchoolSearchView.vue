@@ -1,6 +1,9 @@
 <template>
   <div style="margin: 100px 100px">
-    <div v-if="schoolInfo.length > 0" class="school-grid">
+    <div
+      v-if="searchSchoolInfo && searchSchoolInfo.length > 0"
+      class="school-grid"
+    >
       <!-- 여러 학교 정보를 동적으로 렌더링하기 위해 v-for 디렉티브 사용 -->
       <b-card
         v-for="(school, index) in searchSchoolInfo"
@@ -21,9 +24,9 @@
           학급 닉네임: {{ school.nickname }}
         </b-card-text>
         <!-- 상세 보기 버튼 -->
-        <button
-          v-if="isJoined(school)"
-          class="btn-main entry-submit-btn">이미 참여 중인 학급</button>
+        <button v-if="isJoined(school)" class="btn-main entry-submit-btn">
+          이미 참여 중
+        </button>
         <button
           v-else
           class="btn-main entry-submit-btn"
@@ -85,9 +88,6 @@ export default {
     this.keyword = this.$route.query.searchQuery;
     this.loginId = JSON.parse(sessionStorage.getItem("userInfo"));
     this.searchSchool(this.keyword);
-    if (this.loginId) {
-      this.getSchool(this.login)
-    }
   },
   methods: {
     ...mapActions(schoolStore, ["searchSchool"]),
@@ -108,10 +108,13 @@ export default {
       this.$refs["my-modal"].toggle("#toggle-btn");
     },
     isJoined(school) {
-      return this.schoolInfo.some(info => {
-        return info.classId == school.classId
-      });
-    }
+      if (this.schoolInfo !== null) {
+        return this.schoolInfo.some((info) => {
+          return info.classId == school.classId;
+        });
+      }
+      return false;
+    },
   },
   computed: {
     ...mapState(schoolStore, ["schoolInfo"]),
