@@ -51,11 +51,11 @@ public class UserServiceImpl implements UserService {
         String checkResult = userRepository.checkValidateId(userId);
 
         //아이디가 중복된 경우
-        if(checkResult == null){
-            return false;
+        if(checkResult != null){
+            return true;
         }
         //아이디가 중복되지 않은 경우
-        return true;
+        return false;
     }
 
 

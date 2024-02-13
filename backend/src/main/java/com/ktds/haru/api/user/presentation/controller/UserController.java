@@ -72,7 +72,7 @@ public class UserController {
                                            @RequestParam(name = "id") String id) {
 
         //아이디가 중복된 경우
-        if (!userService.checkValidateId(id)) {
+        if (userService.checkValidateId(id)) {
             return new BaseResponse<>(false, HttpStatus.CONFLICT.value(), "아이디 중복 있음");
         }
 

@@ -23,9 +23,16 @@
               class="entry-text-title"
               v-model="formData.pwd"
             />
-            <button class="btn-main entry-submit-btn" type="submit">
-              로그인
-            </button>
+            <div style="display: flex; justify-content: space-between">
+              <button class="btn-main entry-submit-btn">로그인</button>
+              <router-link
+                to="/user/signup"
+                id="login-link"
+                style="text-decoration: none"
+              >
+                <button class="btn-main entry-submit-btn">회원가입</button>
+              </router-link>
+            </div>
           </form>
         </div>
       </div>
