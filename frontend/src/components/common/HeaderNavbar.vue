@@ -16,6 +16,19 @@
             >
           </b-navbar-nav>
         </b-collapse>
+        
+        <b-collapse
+          id="nav-text-collapse"
+          is-nav
+        >
+          <b-navbar-nav>
+            <b-nav-item href="/diary/recommend" id="item-text"
+              >주제 추천</b-nav-item
+            >
+          </b-navbar-nav>
+        </b-collapse>
+
+
         <b-collapse
           id="nav-text-collapse"
           is-nav

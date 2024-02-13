@@ -1,12 +1,22 @@
 <template>
   <div>
-    <button
-      class="btn-main entry-submit-btn"
-      style="margin-left: auto; margin-right: 100px; margin-top: 40px"
-      @click="goToDiaryCreate()"
-    >
-      일기 쓰기
-    </button>
+    <div style="display: flex; justify-content: space-between; align-items: center; gap:30px; margin-top: 40px;">
+      <button
+        class="btn-main entry-submit-btn"
+        style="margin-left: auto;"
+        @click.prevent="goToChatGPT()"
+      >
+        주제 추천받기
+      </button>
+      <button
+        class="btn-main entry-submit-btn"
+        @click="goToDiaryCreate()"
+        style="margin-right:200px;"
+      >
+        일기 쓰기
+      </button>
+    </div>
+
     <div v-if="diaryList && diaryList.length > 0" class="diary-grid">
       <b-card
         v-for="(diary, index) in diaryList"
@@ -24,10 +34,7 @@
           작성자: {{ diary.id }}
         </b-card-text>
         <!-- 상세 보기 버튼 -->
-        <button
-          class="btn-main entry-submit-btn"
-          @click="goToDiaryDetail(diary.diaryId)"
-        >
+        <button class="btn-main entry-submit-btn" @click="goToDiaryDetail(diary.diaryId)">
           상세보기
         </button>
         <template #footer>
@@ -88,6 +95,9 @@ export default {
       const classId = this.classId;
       router.push({ name: "DiaryCreateView", params: { classId } });
     },
+    goToChatGPT() {
+      router.push({name: "DiaryChatGPTView"})
+    }
   },
   computed: {
     ...mapState(diaryStore, ["diaryList"]),
@@ -123,9 +133,7 @@ export default {
   gap: 10px; /* 요소 사이의 간격 */
 }
 b-card {
-  max-width: calc(
-    20% - 10px
-  ); /* 20%로 설정하여 가로 5열로 나눈 후 간격을 빼줍니다. */
+  max-width: calc(20% - 10px); /* 20%로 설정하여 가로 5열로 나눈 후 간격을 빼줍니다. */
 }
 /* My Starter Template */
 
