@@ -25,7 +25,7 @@
                 class="entry-text-title"
                 placeholder="School Grade"
               />
-              <label for="schoolClass" class="journal-label">반</label>
+              <label for="schoolClass" class="journal-label">반/동아리</label>
               <input
                 type="text"
                 name="schoolClass"
@@ -52,7 +52,7 @@
                 class="entry-text-title"
                 placeholder="Nickname"
               />
-              <!-- 추가 입력 항목 끝 -->
+              <!-- 입력 항목 끝 -->
               <button class="btn-main entry-submit-btn" type="submit">
                 Submit
               </button>

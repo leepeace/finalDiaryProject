@@ -1,13 +1,28 @@
 <template>
   <div class="center-container">
-    <h1>오늘의 일기 주제를 추천받으세요</h1>
+    <div
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <h1>
+        오늘의 일기 주제를 추천받으세요
+        <img
+          src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Cat%20with%20Wry%20Smile.png"
+          alt="Cat with Wry Smile"
+          width="75"
+          height="75"
+        />
+      </h1>
+    </div>
+
     <button
       style="width: 160px; height: 50px"
       @click.prevent="createChatGPT"
       class="btn-main entry-submit-btn"
+      v-if="messageContent == ''"
     >
       추천받기
     </button>
+
     <h3 v-html="formattedMessageContent"></h3>
   </div>
 </template>
